@@ -25,6 +25,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
 	private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
+	private ImageMenuItem item_shortcuts_manager = new ImageMenuItem(Icons.PREFERENCES);
 
 	public signal void about();
 	public signal void preferences();
@@ -34,6 +35,7 @@ public class Menubar : Gtk.MenuBar
 	public signal void select_all();
 	public signal void new_window();
 	public signal void quit();
+	public signal void shortcuts_manager();
 
 	public Menubar()
 	{
@@ -51,6 +53,7 @@ public class Menubar : Gtk.MenuBar
 				this.item_preferences});
 
 		var menu_tools = new MenuItem(tr("Tools"), {
+				this.item_shortcuts_manager,
 				this.item_clear});
 
 		var menu_help = new MenuItem(tr("Help"), {
@@ -82,5 +85,6 @@ public class Menubar : Gtk.MenuBar
 		this.item_select_all.activate.connect(() => this.select_all());
 		this.item_new_window.activate.connect(() => this.new_window());
 		this.item_quit.activate.connect(() => this.quit());
+		this.item_shortcuts_manager.activate.connect(() => this.shortcuts_manager());
 	}
 }

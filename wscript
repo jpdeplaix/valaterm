@@ -142,6 +142,8 @@ def build(bld):
                          'src/parameter-box.vala',
                          'src/pictures.vala',
                          'src/settings.vala',
+                         'src/shortcut-box.vala',
+                         'src/shortcuts-manager.vala',
                          'src/spin-button.vala',
                          'src/terminal.vala'])
 

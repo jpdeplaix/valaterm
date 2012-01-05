@@ -19,6 +19,7 @@ public class ShortcutBox : Gtk.HBox
 {
 	Gtk.ComboBox first_key = new Gtk.ComboBox.text();
 	Gtk.ComboBox second_key = new Gtk.ComboBox.text();
+	Gtk.Entry entry = new Gtk.Entry();
 
 	public ShortcutBox()
 	{
@@ -31,5 +32,38 @@ public class ShortcutBox : Gtk.HBox
 
 		this.pack_start(this.first_key);
 		this.pack_start(this.second_key);
+		this.pack_start(this.entry);
+	}
+
+	public uint get_accel_key()
+	{
+		return Gdk.keyval_from_name(this.entry.text);
+	}
+
+	public Gdk.ModifierType get_accel_mods()
+	{
+		Gdk.ModifierType mods = 0;
+
+		switch(this.first_key.get_active_text())
+		{
+		case "Ctrl":
+			mods |= Gdk.ModifierType.CONTROL_MASK;
+			break;
+		case "Super":
+			mods |= Gdk.ModifierType.SUPER_MASK;
+			break;
+		}
+
+		switch(this.second_key.get_active_text())
+		{
+		case "Shift":
+			mods |= Gdk.ModifierType.SHIFT_MASK;
+			break;
+		case "Alt":
+			mods |= Gdk.ModifierType.META_MASK;
+			break;
+		}
+
+		return mods;
 	}
 }

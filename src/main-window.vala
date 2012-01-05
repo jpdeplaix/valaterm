@@ -19,9 +19,10 @@ public class MainWindow : Gtk.Window
 {
 	private static uint window_count = 0;
 
-	private Menubar menubar = new Menubar();
+	public Menubar menubar = new Menubar();
 	private Terminal terminal = new Terminal();
 	private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null, null);
+	public Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public MainWindow()
 	{
@@ -37,6 +38,9 @@ public class MainWindow : Gtk.Window
 		var main_box = new Gtk.VBox(false, 0);
 		main_box.pack_start(this.menubar, false);
 		main_box.pack_start(this.scrolled_window);
+
+		this.add_accel_group(this.accel_group);
+		this.menubar.item_copy.accel_group = this.accel_group;
 
 		this.active_signals();
 		this.add(main_box);
@@ -68,7 +72,7 @@ public class MainWindow : Gtk.Window
 			dialog.show_all();
 		});
 		this.menubar.clear.connect(() => this.terminal.reset(true, true));
-		this.menubar.copy.connect(() => this.terminal.copy_clipboard());
+		this.menubar.copy.connect(() => { stdout.printf("COUCOU\n"); this.terminal.copy_clipboard(); });
 		this.menubar.paste.connect(() => this.terminal.paste_clipboard());
 		this.menubar.select_all.connect(() => this.terminal.select_all());
 		this.menubar.new_window.connect(this.new_window);

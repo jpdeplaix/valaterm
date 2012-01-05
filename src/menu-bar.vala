@@ -20,7 +20,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_about = new ImageMenuItem(Icons.ABOUT);
 	private ImageMenuItem item_preferences = new ImageMenuItem(Icons.PREFERENCES);
 	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
-	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
+	public ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
 	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));

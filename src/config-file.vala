@@ -20,27 +20,27 @@ public class ConfigFile : GLib.Object
 	private GLib.KeyFile file = new GLib.KeyFile();
 	private bool has_errors = false;
 
-    public ConfigFile()
-    {
-        try
-        {
-            this.file.load_from_file(this.filename(), KeyFileFlags.NONE);
-        }
-        catch(GLib.Error error)
-        {
+	public ConfigFile()
+	{
+		try
+		{
+			this.file.load_from_file(this.filename(), KeyFileFlags.NONE);
+		}
+		catch(GLib.Error error)
+		{
 			if(!(error is GLib.KeyFileError.PARSE))
 			{
 				this.has_errors = true;
 				// FIXME: Do something !
 			}
-        }
-    }
+		}
+	}
 
 	public string get_string_key(string group, string key, string default_value)
 	{
 		try
 		{
-		    return this.file.get_string(group, key);
+			return this.file.get_string(group, key);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -91,7 +91,7 @@ public class ConfigFile : GLib.Object
 	{
 		try
 		{
-		    return Colors.parse(this.file.get_string(group, key));
+			return Colors.parse(this.file.get_string(group, key));
 		}
 		catch(GLib.Error error)
 		{
@@ -104,8 +104,8 @@ public class ConfigFile : GLib.Object
 		return default_value;
 	}
 
-    public void write()
-    {
+	public void write()
+	{
 		if(!this.has_errors)
 		{
 			try
@@ -117,7 +117,7 @@ public class ConfigFile : GLib.Object
 				// FIXME: Do something !
 			}
 		}
-    }
+	}
 
 	public void set_string(string group_name, string key, string str)
 	{

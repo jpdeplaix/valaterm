@@ -1,6 +1,7 @@
 TODO
 ====
 
- * Add some execution arguments.
+ * Add some execution arguments. (--name, -c)
  * Add a search feature.
+ * Add a hotkeys manager.
  * ...

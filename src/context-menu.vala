@@ -21,20 +21,30 @@ public class ContextMenu : Gtk.Menu
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
 	private CheckMenuItem item_display_menubar = new CheckMenuItem(tr("Menu Bar"), Settings.show_menubar);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
+	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
+	private ImageMenuItem item_preferences = new ImageMenuItem(Icons.PREFERENCES);
+	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
 
 	public signal void copy();
 	public signal void paste();
 	public signal void display_menubar(bool show);
 	public signal void new_window();
+	public signal void select_all();
+	public signal void preferences();
+	public signal void clear();
 
 	public ContextMenu()
 	{
 		this.append(this.item_copy);
 		this.append(this.item_paste);
+		this.append(this.item_select_all);
 		this.append(new Gtk.SeparatorMenuItem());
 		this.append(this.item_display_menubar);
 		this.append(new Gtk.SeparatorMenuItem());
 		this.append(this.item_new_window);
+		this.append(this.item_preferences);
+		this.append(new Gtk.SeparatorMenuItem());
+		this.append(this.item_clear);
 
 		this.active_signals();
 	}
@@ -49,5 +59,8 @@ public class ContextMenu : Gtk.Menu
 			this.display_menubar(this.item_display_menubar.active);
 		});
 		this.item_new_window.activate.connect(() => this.new_window());
+		this.item_select_all.activate.connect(() => this.select_all());
+		this.item_preferences.activate.connect(() => this.preferences());
+		this.item_clear.activate.connect(() => this.clear());
 	}
 }

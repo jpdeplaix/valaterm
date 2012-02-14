@@ -17,7 +17,6 @@
 
 public class Terminal : Vte.Terminal
 {
-	private ContextMenu context_menu = new ContextMenu();
 	private GLib.Pid? child_pid = null;
 
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
@@ -25,14 +24,12 @@ public class Terminal : Vte.Terminal
 #endif
 
 	public signal void title_changed(string title);
-	public signal void new_window();
-	public signal void display_menubar(bool show);
 
 	public Terminal()
 	{
-        this.scroll_on_keystroke = true;
+		this.scroll_on_keystroke = true;
 
-        this.background_transparent = Settings.transparency;
+		this.background_transparent = Settings.transparency;
 		this.scrollback_lines = Settings.scrollback_lines;
 		this.set_font_from_string(Settings.font);
 		this.set_colors(Settings.foreground_color,
@@ -44,13 +41,7 @@ public class Terminal : Vte.Terminal
 
 	private void active_signals()
 	{
-		this.button_press_event.connect(this.display_menu);
 		this.window_title_changed.connect(() => this.title_changed(this.window_title));
-
-		this.context_menu.copy.connect(() => this.copy_clipboard());
-		this.context_menu.paste.connect(() => this.paste_clipboard());
-		this.context_menu.new_window.connect(() => this.new_window());
-		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
 	}
 
 	public void active_shell(string dir)
@@ -95,19 +86,6 @@ public class Terminal : Vte.Terminal
 		int diff_char = real_char_height - (int)(this.get_char_height());
 
 		return (int)(this.get_char_height() * row_count) + diff + diff_char;
-	}
-
-	private bool display_menu(Gdk.EventButton event)
-	{
-		if(event.button == 3) // 3 is the right button
-		{
-			this.context_menu.show_all();
-			context_menu.popup(null, null, null, event.button, event.time);
-
-			return true;
-		}
-
-		return false;
 	}
 
 	public bool has_foreground_process()

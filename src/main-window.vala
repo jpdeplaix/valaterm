@@ -18,6 +18,7 @@
 public class MainWindow : Gtk.Window
 {
 	private static uint window_count = 0;
+	private ContextMenu context_menu = new ContextMenu();
 
 	private Menubar menubar = new Menubar();
 	private Terminal terminal = new Terminal();
@@ -59,17 +60,7 @@ public class MainWindow : Gtk.Window
 	private void active_signals()
 	{
 		this.menubar.about.connect(() => About.display(this));
-		this.menubar.preferences.connect(() =>
-		{
-			var dialog = new ParametersWindow(this);
-			dialog.font_changed.connect(this.terminal.set_font_from_string);
-			dialog.background_color_changed.connect(this.terminal.set_color_background);
-			dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
-			dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
-			dialog.transparency_changed.connect(this.terminal.set_background_transparent);
-			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
-			dialog.show_all();
-		});
+		this.menubar.preferences.connect(() => this.show_preferences());
 		this.menubar.clear.connect(() => this.terminal.reset(true, true));
 		this.menubar.copy.connect(() => this.terminal.copy_clipboard());
 		this.menubar.paste.connect(() => this.terminal.paste_clipboard());
@@ -82,8 +73,31 @@ public class MainWindow : Gtk.Window
 		this.terminal.child_exited.connect(this.exit);
 
 		this.terminal.title_changed.connect(this.set_title);
-		this.terminal.new_window.connect(this.new_window);
-		this.terminal.display_menubar.connect(this.menubar.set_visible);
+
+		this.terminal.button_press_event.connect(this.display_menu);
+		this.menubar.button_press_event.connect(this.display_menu);
+
+		this.context_menu.copy.connect(() => this.terminal.copy_clipboard());
+		this.context_menu.paste.connect(() => this.terminal.paste_clipboard());
+		this.context_menu.display_menubar.connect(this.menubar.set_visible);
+		this.context_menu.new_window.connect(() => this.new_window());
+		this.context_menu.select_all.connect(() => this.terminal.select_all());
+		this.context_menu.preferences.connect(() => this.show_preferences());
+		this.context_menu.clear.connect(() => this.terminal.reset(true, true));
+	}
+
+	private void show_preferences()
+	{
+		var dialog = new ParametersWindow(this);
+
+		dialog.font_changed.connect(this.terminal.set_font_from_string);
+		dialog.background_color_changed.connect(this.terminal.set_color_background);
+		dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
+		dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
+		dialog.transparency_changed.connect(this.terminal.set_background_transparent);
+		dialog.show_scrollbar_changed.connect(this.show_scrollbar);
+
+		dialog.show_all();
 	}
 
 	private void on_destroy()
@@ -123,6 +137,19 @@ public class MainWindow : Gtk.Window
 		}
 
 		return return_value;
+	}
+
+	private bool display_menu(Gdk.EventButton event)
+	{
+		if(event.button == 3) // 3 is the right button
+		{
+			this.context_menu.show_all();
+			context_menu.popup(null, null, null, event.button, event.time);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void new_window()

@@ -53,6 +53,13 @@ public class Terminal : Vte.Terminal
 			string[] args = {};
 
 			GLib.Shell.parse_argv(this.shell, out args);
+
+			if(Settings.command != null)
+			{
+				args += "-c";
+				args += Settings.command;
+			}
+
 			this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
 		}
 		catch(GLib.Error error)

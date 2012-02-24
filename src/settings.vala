@@ -32,11 +32,36 @@ public class Settings : GLib.Object
 
 	private static unowned ConfigFile file;
 
-	public static void init(ConfigFile file)
+	private static string? _command = null;
+
+	public static void init(ConfigFile file, string[] args)
 	{
+		bool founded = false;
+
 		Settings.file = file;
+
+		foreach(var arg in args)
+		{
+			if(founded)
+			{
+				_command = arg;
+			}
+
+			if(arg == "-c")
+			{
+				founded = true;
+			}
+		}
 	}
 
+	public static string command
+	{
+		get
+		{
+			return _command;
+		}
+	}
+	
 	public static string font
 	{
 		// FIXME: Why owned (only) here ???

@@ -36,20 +36,20 @@ public class Settings : GLib.Object
 
 	public static void init(ConfigFile file, string[] args)
 	{
-		bool founded = false;
+		bool found = false;
 
 		Settings.file = file;
 
 		foreach(var arg in args)
 		{
-			if(founded)
+			if(found)
 			{
 				_command = arg;
 			}
 
 			if(arg == "-c")
 			{
-				founded = true;
+				found = true;
 			}
 		}
 	}

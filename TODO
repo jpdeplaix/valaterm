@@ -2,6 +2,7 @@ TODO
 ====
 
  * Add some execution arguments. (--name)
+ * Add comments in the config file to configure it with hands.
  * Add a search feature.
  * Add a hotkeys manager.
  * Add a keyboard shortcut mananger.

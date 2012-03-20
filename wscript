@@ -101,7 +101,8 @@ def configure(conf):
 
     if conf.options.debug == True:
         conf.env.CFLAGS.extend(['-g3', '-ggdb3'])
-        conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG'])
+        conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG',
+            '--enable-experimental-non-null'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
         conf.env.VALAFLAGS.extend(['--thread'])

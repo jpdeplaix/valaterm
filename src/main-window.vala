@@ -152,7 +152,16 @@ public class MainWindow : Gtk.Window
 	private void new_window()
 	{
 		var window = new MainWindow();
-		window.display(this.terminal.get_shell_cwd());
+		string? cwd = this.terminal.get_shell_cwd();
+
+		if(cwd == null)
+		{
+			window.display();
+		}
+		else
+		{
+			window.display((!)(cwd));
+		}
 	}
 
 	private void show_scrollbar(bool show)

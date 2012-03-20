@@ -54,7 +54,7 @@ public class Settings : GLib.Object
 		}
 	}
 
-	public static string command
+	public static string? command
 	{
 		get
 		{

@@ -57,7 +57,7 @@ public class Terminal : Vte.Terminal
 			if(Settings.command != null)
 			{
 				args += "-c";
-				args += Settings.command;
+				args += (!)(Settings.command);
 			}
 
 			this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);

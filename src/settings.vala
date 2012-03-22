@@ -34,22 +34,19 @@ public class Settings : GLib.Object
 
 	private static string? _command = null;
 
-	public static void init(ConfigFile file, string[] args)
+	public static void init(ConfigFile file, string[] args) throws GLib.OptionError
 	{
-		bool found = false;
-
 		Settings.file = file;
 
-		foreach(var arg in args)
+		for(size_t i = 1; i < args.length; ++i)
 		{
-			if(found)
+			if(args[i] == "-c" && (i + 1) < args.length)
 			{
-				_command = arg;
+				_command = args[++i];
 			}
-
-			if(arg == "-c")
+			else
 			{
-				found = true;
+				throw new GLib.OptionError.FAILED("Command arguments are bad formated");
 			}
 		}
 	}

@@ -20,7 +20,15 @@ void main(string[] args)
 	Gtk.init(ref args);
 
 	var file = new ConfigFile();
-	Settings.init(file, args);
+
+	try
+	{
+		Settings.init(file, args);
+	}
+	catch(GLib.OptionError e)
+	{
+		GLib.stderr.printf("%s.\n", e.message);
+	}
 
 #if ENABLE_NLS
 	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, "");

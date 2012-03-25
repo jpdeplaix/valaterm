@@ -41,7 +41,9 @@ public class Terminal : Vte.Terminal
 
 	private void active_signals()
 	{
-		this.window_title_changed.connect(() => this.title_changed(this.window_title));
+		this.window_title_changed.connect(() => {
+				this.title_changed(this.window_title);
+			});
 	}
 
 	public void active_shell(string dir)
@@ -50,7 +52,7 @@ public class Terminal : Vte.Terminal
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 		try
 		{
-			string[] args = {};
+			var args = new string[0];
 
 			GLib.Shell.parse_argv(this.shell, out args);
 
@@ -60,14 +62,17 @@ public class Terminal : Vte.Terminal
 				args += (!)(Settings.command);
 			}
 
-			this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
+			this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null,
+								   GLib.SpawnFlags.SEARCH_PATH, null,
+								   out this.child_pid);
 		}
 		catch(GLib.Error error)
 		{
-			// Do something !
+			Errors.print(error);
 		}
 #else
-		this.child_pid = this.fork_command(null, null, null, dir, true, true, true);
+		this.child_pid = this.fork_command(null, null, null, dir,
+										   true, true, true);
 #endif
 	}
 
@@ -89,6 +94,7 @@ public class Terminal : Vte.Terminal
 		int pty = this.pty;
 #endif
 		int fgpid = Posix.tcgetpgrp(pty);
+
 		return fgpid != this.child_pid && fgpid != -1;
 	}
 
@@ -117,9 +123,7 @@ public class Terminal : Vte.Terminal
 		}
 		catch(GLib.FileError error)
 		{
-#if DEBUG
-			GLib.stderr.printf("Error: %s.\n", error.message);
-#endif
+			Errors.print(error);
 		}
 
 		return null;

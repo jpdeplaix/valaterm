@@ -15,38 +15,10 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-void main(string[] args)
+namespace Errors
 {
-	Gtk.init(ref args);
-
-	var file = new ConfigFile();
-
-	try
+	public void print(GLib.Error error)
 	{
-		Settings.init(file, args);
+		GLib.stderr.printf("Error: %s.\n", error.message);
 	}
-	catch(GLib.OptionError error)
-	{
-		Errors.print(error);
-	}
-
-#if ENABLE_NLS
-	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, null);
-	GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
-	GLib.Intl.textdomain(Config.GETTEXT_PACKAGE);
-#endif
-
-	var window = new MainWindow();
-	window.display();
-
-	Gtk.main();
-}
-
-public unowned string tr(string str)
-{
-#if ENABLE_NLS
-	return GLib._(str);
-#else
-	return str;
-#endif
 }

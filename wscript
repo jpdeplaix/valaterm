@@ -131,6 +131,7 @@ def build(bld):
                          'src/config-file.vala',
                          'src/context-menu.vala',
                          'src/default-dialog.vala',
+                         'src/errors.vala',
                          'src/font-button.vala',
                          'src/icons.vala',
                          'src/image-menu-item.vala',

@@ -41,7 +41,7 @@ namespace Colors
 	{
 		Gdk.Color value;
 
-		if(!Gdk.Color.parse(color, out value))
+		if(Gdk.Color.parse(color, out value) == false)
 		{
 			throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color);
 		}

@@ -53,11 +53,10 @@ public class ContextMenu : Gtk.Menu
 	{
 		this.item_copy.activate.connect(() => this.copy());
 		this.item_paste.activate.connect(() => this.paste());
-		this.item_display_menubar.activate.connect(() =>
-		{
-			Settings.show_menubar = this.item_display_menubar.active;
-			this.display_menubar(this.item_display_menubar.active);
-		});
+		this.item_display_menubar.activate.connect(() => {
+				Settings.show_menubar = this.item_display_menubar.active;
+				this.display_menubar(this.item_display_menubar.active);
+			});
 		this.item_new_window.activate.connect(() => this.new_window());
 		this.item_select_all.activate.connect(() => this.select_all());
 		this.item_preferences.activate.connect(() => this.preferences());

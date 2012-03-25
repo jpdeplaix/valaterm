@@ -123,7 +123,10 @@ public class MainWindow : Gtk.Window
 
 		if(this.terminal.has_foreground_process())
 		{
-			var dialog = new MessageDialog(this, tr("There is still a process running in this terminal. Closing the window will kill it."), tr("Would you closing this window ?"));
+			var dialog = new MessageDialog(this, tr("There is still a process " +
+													"running in this terminal. " +
+													"Closing the window will kill it."),
+										   tr("Would you closing this window ?"));
 
 			if(dialog.run() == Gtk.ResponseType.CANCEL)
 			{
@@ -167,8 +170,14 @@ public class MainWindow : Gtk.Window
 	private void show_scrollbar(bool show)
 	{
 		if(show == true)
-			this.scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+		{
+			this.scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC,
+											Gtk.PolicyType.AUTOMATIC);
+		}
 		else
-			this.scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
+		{
+			this.scrolled_window.set_policy(Gtk.PolicyType.NEVER,
+											Gtk.PolicyType.NEVER);
+		}
 	}
 }

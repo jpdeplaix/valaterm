@@ -40,7 +40,8 @@ public class Menubar : Gtk.MenuBar
 		var menu_file = new MenuItem(tr("File"), {
 				this.item_new_window,
 				new Gtk.SeparatorMenuItem(),
-				this.item_quit});
+				this.item_quit
+			});
 
 		var menu_edit = new MenuItem(tr("Edit"), {
 				this.item_copy,
@@ -48,13 +49,16 @@ public class Menubar : Gtk.MenuBar
 				new Gtk.SeparatorMenuItem(),
 				this.item_select_all,
 				new Gtk.SeparatorMenuItem(),
-				this.item_preferences});
+				this.item_preferences
+			});
 
 		var menu_tools = new MenuItem(tr("Tools"), {
-				this.item_clear});
+				this.item_clear
+			});
 
 		var menu_help = new MenuItem(tr("Help"), {
-				this.item_about});
+				this.item_about
+			});
 
 		this.append(menu_file);
 		this.append(menu_edit);

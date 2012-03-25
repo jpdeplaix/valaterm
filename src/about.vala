@@ -17,6 +17,7 @@
 
 public class About : Gtk.AboutDialog
 {
+	// Set as a constant member to remove a gcc warning due to valac bug (See: https://bugzilla.gnome.org/show_bug.cgi?id=652310)
 	const string[] all_authors = { "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>" };
 
 	private About(MainWindow parent_window)
@@ -48,6 +49,7 @@ public class About : Gtk.AboutDialog
 	public static void display(MainWindow parent_window)
 	{
 		var window = new About(parent_window);
+
 		window.run();
 		window.destroy();
 	}

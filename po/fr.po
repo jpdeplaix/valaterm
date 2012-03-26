@@ -7,15 +7,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: valaterm 0.4.2\n"
-"POT-Creation-Date: 2011-06-02 22:28+0200\n"
-"PO-Revision-Date: 2011-06-02 22:32+0200\n"
+"POT-Creation-Date: 2012-03-26 10:20+0200\n"
+"PO-Revision-Date: 2012-03-26 10:32+0200\n"
 "Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/about.vala:28
+#: src/about.vala:29
 msgid "ValaTerm is a lightweight terminal written in Vala"
 msgstr "ValaTerm est un terminal léger écrit en Vala"
 
@@ -23,11 +23,11 @@ msgstr "ValaTerm est un terminal léger écrit en Vala"
 msgid "Menu Bar"
 msgstr "Barre de Menu"
 
-#: src/context-menu.vala:23 src/menu-bar.vala:25
+#: src/context-menu.vala:23 src/menu-bar.vala:26
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: src/main-window.vala:108
+#: src/main-window.vala:126
 msgid ""
 "There is still a process running in this terminal. Closing the window will "
 "kill it."
@@ -35,46 +35,50 @@ msgstr ""
 "Il reste encore un processus en cours dans ce terminal. Fermer cette fenêtre va "
 "l'arrêter."
 
-#: src/main-window.vala:108
+#: src/main-window.vala:129
 msgid "Would you closing this window ?"
 msgstr "Voulez-vous fermer cette fenêtre ?"
 
-#: src/menu-bar.vala:38
+#: src/menu-bar.vala:40
 msgid "File"
 msgstr "Fichier"
 
-#: src/menu-bar.vala:43
+#: src/menu-bar.vala:46
 msgid "Edit"
 msgstr "Édition"
 
-#: src/menu-bar.vala:49
+#: src/menu-bar.vala:55
 msgid "Tools"
 msgstr "Outils"
 
-#: src/menu-bar.vala:52
+#: src/menu-bar.vala:59
 msgid "Help"
 msgstr "Aide"
 
-#: src/parameters-window.vala:34
+#: src/parameters-window.vala:36
 msgid "ValaTerm Preferences"
 msgstr "Préférences de ValaTerm"
 
-#: src/parameters-window.vala:37
+#: src/parameters-window.vala:39
 msgid "Font:"
 msgstr "Police:"
 
-#: src/parameters-window.vala:39
+#: src/parameters-window.vala:41
 msgid "Background color:"
 msgstr "Couleur d'arrière-plan:"
 
-#: src/parameters-window.vala:42
+#: src/parameters-window.vala:44
 msgid "Foreground color:"
 msgstr "Couleur du texte:"
 
-#: src/parameters-window.vala:45
+#: src/parameters-window.vala:47
 msgid "Scrollback lines:"
 msgstr "Lignes de défilement:"
 
-#: src/parameters-window.vala:48
+#: src/parameters-window.vala:50
 msgid "Transparency:"
 msgstr "Transparence:"
+
+#: src/parameters-window.vala:53
+msgid "Show scrollbar:"
+msgstr "Voir la barre de défilement:"

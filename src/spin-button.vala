@@ -17,10 +17,10 @@
 
 public class SpinButton : Gtk.SpinButton
 {
-	public SpinButton(double value)
-	{
-		this.set_range(-1, 10000);
-		this.set_increments(1, 1);
-		this.value = value;
-	}
+    public SpinButton(double value)
+    {
+        this.set_range(-1, 10000);
+        this.set_increments(1, 1);
+        this.value = value;
+    }
 }

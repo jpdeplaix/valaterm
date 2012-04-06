@@ -17,12 +17,12 @@
 
 public class ParameterBox : Gtk.HBox
 {
-	public ParameterBox(string label, Gtk.Widget chooser_widget)
-	{
-		this.homogeneous = true;
-		this.spacing = 10;
+    public ParameterBox(string label, Gtk.Widget chooser_widget)
+    {
+        this.homogeneous = true;
+        this.spacing = 10;
 
-		this.pack_start(new Gtk.Label(label));
-		this.pack_start(chooser_widget);
-	}
+        this.pack_start(new Gtk.Label(label));
+        this.pack_start(chooser_widget);
+    }
 }

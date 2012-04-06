@@ -17,8 +17,8 @@
 
 namespace Errors
 {
-	public void print(GLib.Error error)
-	{
-		GLib.stderr.printf("Error: %s.\n", error.message);
-	}
+    public void print(GLib.Error error)
+    {
+        GLib.stderr.printf("Error: %s.\n", error.message);
+    }
 }

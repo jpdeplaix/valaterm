@@ -17,8 +17,8 @@
 
 public class CheckButton : Gtk.CheckButton
 {
-	public CheckButton(bool active)
-	{
-		this.active = active;
-	}
+    public CheckButton(bool active)
+    {
+        this.active = active;
+    }
 }

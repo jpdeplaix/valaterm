@@ -17,9 +17,9 @@
 
 public class CheckMenuItem : Gtk.CheckMenuItem
 {
-	public CheckMenuItem(string label, bool active)
-	{
-		this.label = label;
-		this.active = active;
-	}
+    public CheckMenuItem(string label, bool active)
+    {
+        this.label = label;
+        this.active = active;
+    }
 }

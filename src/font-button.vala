@@ -17,8 +17,8 @@
 
 public class FontButton : Gtk.FontButton
 {
-	public FontButton(string font)
-	{
-		this.font_name = font;
-	}
+    public FontButton(string font)
+    {
+        this.font_name = font;
+    }
 }

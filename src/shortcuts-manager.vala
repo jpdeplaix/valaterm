@@ -32,6 +32,6 @@ public class ShortcutsManager : DefaultDialog
 	{
 		unowned MainWindow window = (MainWindow)this.transient_for;
 
-		window.menubar.item_copy.add_accelerator("activate", window.accel_group, this.copy_shortcut.get_accel_key(), Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK, Gtk.AccelFlags.VISIBLE);
+		window.menubar.item_copy.set_accelerator(this.copy_shortcut.get_accel_key(), Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK);
 	}
 }

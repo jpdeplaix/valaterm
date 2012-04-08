@@ -75,6 +75,19 @@ public class Menubar : Gtk.MenuBar
 		}
 	}
 
+    public void set_accel(Gtk.AccelGroup accel)
+    {
+         this.item_about.set_accel(accel);
+         this.item_preferences.set_accel(accel);
+         this.item_clear.set_accel(accel);
+         this.item_copy.set_accel(accel);
+         this.item_paste.set_accel(accel);
+         this.item_select_all.set_accel(accel);
+         this.item_new_window.set_accel(accel);
+         this.item_quit.set_accel(accel);
+         this.item_shortcuts_manager.set_accel(accel);
+    }
+
 	private void active_signals()
 	{
 		this.item_about.activate.connect(() => this.about());

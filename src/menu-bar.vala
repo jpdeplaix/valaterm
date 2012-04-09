@@ -20,7 +20,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_about = new ImageMenuItem(Icons.ABOUT);
 	private ImageMenuItem item_preferences = new ImageMenuItem(Icons.PREFERENCES);
 	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
-	public ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
+	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
 	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
@@ -86,6 +86,22 @@ public class Menubar : Gtk.MenuBar
          this.item_new_window.set_accel(accel);
          this.item_quit.set_accel(accel);
          this.item_shortcuts_manager.set_accel(accel);
+    }
+
+    public void connect_shortcuts(ShortcutsManager window)
+    {
+        window.about_changed.connect(this.item_about.set_accelerator);
+        window.preferences_changed.connect(this.item_preferences.set_accelerator);
+        window.clear_changed.connect(this.item_clear.set_accelerator);
+        window.copy_changed.connect(this.item_copy.set_accelerator);
+        window.paste_changed.connect(this.item_paste.set_accelerator);
+        window.select_all_changed.connect(this.item_select_all.set_accelerator);
+        window.new_window_changed.connect(this.item_new_window.set_accelerator);
+        window.quit_changed.connect(this.item_quit.set_accelerator);
+        window.shortcuts_manager_changed.connect(this.item_shortcuts_manager.set_accelerator);
+        window.about_changed.connect(this.item_about.set_accelerator);
+        window.about_changed.connect(this.item_about.set_accelerator);
+        window.about_changed.connect(this.item_about.set_accelerator);
     }
 
 	private void active_signals()

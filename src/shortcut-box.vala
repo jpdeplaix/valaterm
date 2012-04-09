@@ -31,6 +31,8 @@ public class ShortcutBox : Gtk.HBox
 
     public ShortcutBox(string label)
     {
+        this.homogeneous = true;
+        this.spacing = 10;
         this.label = new Gtk.Label(label + ":");
 
         this.first_key.append_text("Ctrl");

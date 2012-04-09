@@ -17,19 +17,21 @@
 
 public class ShortcutsManager : DefaultDialog
 {
-    private ShortcutBox[] shortcuts;
+    private ShortcutBox[] shortcuts = new ShortcutBox[0];
 
-	public ShortcutsManager(MainWindow parent_window, ShortcutBox[] shortcuts)
+	public ShortcutsManager(MainWindow parent_window, ImageMenuItem[] items)
 	{
 		this.title = tr("ValaTerm shortcuts");
 		this.transient_for = parent_window;
-        this.shortcuts = shortcuts;
 
 		var main_box = (Gtk.Box)(this.get_content_area());
 
-        foreach(var box in shortcuts)
+        foreach(var item in items)
         {
-            main_box.pack_start(box);
+            var shortcut = item.get_shortcut_box();
+
+            main_box.pack_start(shortcut);
+            this.shortcuts += shortcut;
         }
 	}
 

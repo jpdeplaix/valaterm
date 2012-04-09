@@ -17,14 +17,17 @@
 
 public class ShortcutBox : Gtk.HBox
 {
-	Gtk.ComboBox first_key = new Gtk.ComboBox.text();
-	Gtk.ComboBox second_key = new Gtk.ComboBox.text();
-	Gtk.Entry entry = new Gtk.Entry();
+    private Gtk.Label label;
+	private Gtk.ComboBox first_key = new Gtk.ComboBox.text();
+	private Gtk.ComboBox second_key = new Gtk.ComboBox.text();
+	private Gtk.Entry entry = new Gtk.Entry();
 
     public signal void changed(uint accel_key, Gdk.ModifierType accel_mods);
 
-	public ShortcutBox()
+	public ShortcutBox(string label)
 	{
+        this.label = new Gtk.Label(label + ":");
+
 		this.first_key.append_text("Ctrl");
 		this.first_key.append_text("Super");
 		this.second_key.append_text("Shift");
@@ -32,6 +35,7 @@ public class ShortcutBox : Gtk.HBox
 
 		this.first_key.active = 0;
 
+        this.pack_start(this.label);
 		this.pack_start(this.first_key);
 		this.pack_start(this.second_key);
 		this.pack_start(this.entry);

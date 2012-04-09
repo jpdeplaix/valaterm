@@ -17,15 +17,17 @@
 
 public class ImageMenuItem : Gtk.ImageMenuItem
 {
-	private ShortcutBox shortcut = new ShortcutBox();
+	private ShortcutBox? shortcut = null;
     private unowned Gtk.AccelGroup? accel = null;
     private uint? accel_key = null;
     private Gdk.ModifierType? accel_mod = null;
+    private string stock_id;
 
-	public ImageMenuItem(string image, string? label = null)
+	public ImageMenuItem(string stock_id, string? label = null)
 	{
-		this.label = image;
-		this.use_stock = true;
+        this.label = stock_id;
+        this.use_stock = true;
+        this.stock_id = stock_id;
 
 		if(label != null)
 		{
@@ -35,13 +37,18 @@ public class ImageMenuItem : Gtk.ImageMenuItem
 
     public ShortcutBox get_shortcut_box()
     {
+        Gtk.StockItem item;
+
+        Gtk.Stock.lookup(this.stock_id, out item);
+        this.shortcut = new ShortcutBox(item.label.replace("_", ""));
+        this.shortcut.changed.connect(this.set_accelerator);
+
         return this.shortcut;
     }
 
     public void set_accel(Gtk.AccelGroup accel)
     {
         this.accel = accel;
-        this.shortcut.changed.connect(this.set_accelerator);
     }
 
     private void set_accelerator(uint accel_key, Gdk.ModifierType accel_mod)

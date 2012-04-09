@@ -75,18 +75,18 @@ public class Menubar : Gtk.MenuBar
 		}
 	}
 
-    public ShortcutBox[] get_shortcuts()
+    public ImageMenuItem[] get_items()
     {
-        return new ShortcutBox[] {
-            this.item_about.get_shortcut_box(),
-            this.item_preferences.get_shortcut_box(),
-            this.item_clear.get_shortcut_box(),
-            this.item_copy.get_shortcut_box(),
-            this.item_paste.get_shortcut_box(),
-            this.item_select_all.get_shortcut_box(),
-            this.item_new_window.get_shortcut_box(),
-            this.item_quit.get_shortcut_box(),
-            this.item_shortcuts_manager.get_shortcut_box()
+        return new ImageMenuItem[] {
+            this.item_about,
+            this.item_preferences,
+            this.item_clear,
+            this.item_copy,
+            this.item_paste,
+            this.item_select_all,
+            this.item_new_window,
+            this.item_quit,
+            this.item_shortcuts_manager
         };
     }
 

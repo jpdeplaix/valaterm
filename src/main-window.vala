@@ -78,7 +78,7 @@ public class MainWindow : Gtk.Window
 		this.menubar.new_window.connect(this.new_window);
 		this.menubar.quit.connect(this.exit);
 		this.menubar.shortcuts_manager.connect(() => {
-				var dialog = new ShortcutsManager(this, this.menubar.get_shortcuts());
+				var dialog = new ShortcutsManager(this, this.menubar.get_items());
 				dialog.show_all();
 			});
 

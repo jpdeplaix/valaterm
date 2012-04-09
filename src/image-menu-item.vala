@@ -22,6 +22,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     private uint? accel_key = null;
     private Gdk.ModifierType? accel_mod = null;
     private string stock_id;
+    private bool have_custom_label = false;
 
     public ImageMenuItem(string stock_id, string? label = null)
     {
@@ -32,15 +33,24 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         if(label != null)
         {
             this.label = (!)(label);
+            this.have_custom_label = true;
         }
     }
 
     public ShortcutBox get_shortcut_box()
     {
-        Gtk.StockItem item;
+        if(this.have_custom_label)
+        {
+            this.shortcut = new ShortcutBox(this.label);
+        }
+        else
+        {
+            Gtk.StockItem item;
 
-        Gtk.Stock.lookup(this.stock_id, out item);
-        this.shortcut = new ShortcutBox(item.label.replace("_", ""));
+            Gtk.Stock.lookup(this.stock_id, out item);
+            this.shortcut = new ShortcutBox(item.label.replace("_", ""));
+        }
+
         this.shortcut.changed.connect(this.set_accelerator);
 
         return this.shortcut;

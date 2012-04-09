@@ -25,7 +25,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
 	private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
-	private ImageMenuItem item_shortcuts_manager = new ImageMenuItem(Icons.PREFERENCES);
+	private ImageMenuItem item_shortcuts_manager = new ImageMenuItem(Icons.PREFERENCES, tr("Shortcuts Manager"));
 
 	public signal void about();
 	public signal void preferences();

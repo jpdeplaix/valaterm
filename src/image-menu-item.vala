@@ -17,8 +17,8 @@
 
 public class ImageMenuItem : Gtk.ImageMenuItem
 {
-	private ShortcutBox? shortcut = null;
-    private unowned Gtk.AccelGroup? accel = null;
+	private ShortcutBox shortcut;
+    private unowned Gtk.AccelGroup accel;
     private uint? accel_key = null;
     private Gdk.ModifierType? accel_mod = null;
     private string stock_id;
@@ -55,7 +55,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     {
         if(this.accel_key != null && this.accel_mod != null)
         {
-            this.remove_accelerator(this.accel, this.accel_key, this.accel_mod);
+            this.remove_accelerator(this.accel, (!)(this.accel_key), (!)(this.accel_mod));
         }
         this.add_accelerator("activate", this.accel, accel_key, accel_mod, Gtk.AccelFlags.VISIBLE);
         this.accel_group = this.accel;

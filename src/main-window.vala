@@ -23,6 +23,7 @@ public class MainWindow : Gtk.Window
     private Menubar menubar = new Menubar();
     private Terminal terminal = new Terminal();
     private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null, null);
+    private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
     public MainWindow()
     {
@@ -38,6 +39,9 @@ public class MainWindow : Gtk.Window
         var main_box = new Gtk.VBox(false, 0);
         main_box.pack_start(this.menubar, false);
         main_box.pack_start(this.scrolled_window);
+
+        this.add_accel_group(this.accel_group);
+        this.menubar.set_accel(this.accel_group);
 
         this.active_signals();
         this.add(main_box);
@@ -64,6 +68,10 @@ public class MainWindow : Gtk.Window
         this.menubar.select_all.connect(() => this.terminal.select_all());
         this.menubar.new_window.connect(this.new_window);
         this.menubar.quit.connect(this.exit);
+        this.menubar.shortcuts_manager.connect(() => {
+                var dialog = new ShortcutsManager(this, this.menubar.get_items());
+                dialog.show_all();
+            });
 
         this.delete_event.connect(this.on_delete);
         this.destroy.connect(this.on_destroy);

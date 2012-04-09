@@ -21,6 +21,8 @@ public class ShortcutBox : Gtk.HBox
 	Gtk.ComboBox second_key = new Gtk.ComboBox.text();
 	Gtk.Entry entry = new Gtk.Entry();
 
+    public signal void changed(uint accel_key, Gdk.ModifierType accel_mods);
+
 	public ShortcutBox()
 	{
 		this.first_key.append_text("Ctrl");

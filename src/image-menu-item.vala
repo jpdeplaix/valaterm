@@ -17,6 +17,7 @@
 
 public class ImageMenuItem : Gtk.ImageMenuItem
 {
+	private ShortcutBox shortcut = new ShortcutBox();
     private unowned Gtk.AccelGroup? accel = null;
     private uint? accel_key = null;
     private Gdk.ModifierType? accel_mod = null;
@@ -32,12 +33,18 @@ public class ImageMenuItem : Gtk.ImageMenuItem
 		}
 	}
 
+    public ShortcutBox get_shortcut_box()
+    {
+        return this.shortcut;
+    }
+
     public void set_accel(Gtk.AccelGroup accel)
     {
         this.accel = accel;
+        this.shortcut.changed.connect(this.set_accelerator);
     }
 
-    public void set_accelerator(uint accel_key, Gdk.ModifierType accel_mod)
+    private void set_accelerator(uint accel_key, Gdk.ModifierType accel_mod)
     {
         if(this.accel_key != null && this.accel_mod != null)
         {

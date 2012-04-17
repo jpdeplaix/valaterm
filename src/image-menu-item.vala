@@ -59,6 +59,18 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     public void set_accel(Gtk.AccelGroup accel)
     {
         this.accel = accel;
+        this.init_accelerator();
+    }
+
+    private void init_accelerator()
+    {
+        var accel_key = Settings.get_accel_key(this.stock_id);
+        var accel_mods = Settings.get_accel_mods(this.stock_id);
+
+        if(accel_key != 0 && accel_mods != 0)
+        {
+            this.set_accelerator(accel_key, accel_mods);
+        }
     }
 
     private void set_accelerator(uint accel_key, Gdk.ModifierType accel_mod)
@@ -71,5 +83,8 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         this.accel_group = this.accel;
         this.accel_key = accel_key;
         this.accel_mod = accel_mod;
+        Settings.set_accel_key(this.stock_id, (!)this.accel_key);
+        // FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=673879
+        Settings.set_accel_mods(this.stock_id, this.accel_mod);
     }
 }

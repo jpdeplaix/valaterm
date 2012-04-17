@@ -104,6 +104,23 @@ public class ConfigFile : GLib.Object
         return default_value;
     }
 
+    public uint get_uint_key(string group, string key, uint default_value)
+    {
+        try
+        {
+            return (uint)this.file.get_uint64(group, key);
+        }
+        catch(GLib.Error error)
+        {
+#if DEBUG
+            this.display_get_key_error(error.message);
+#endif
+        }
+
+        this.file.set_uint64(group, key, default_value);
+        return default_value;
+    }
+
     public void write()
     {
         if(!this.has_errors)
@@ -132,6 +149,11 @@ public class ConfigFile : GLib.Object
     public void set_integer(string group_name, string key, int value)
     {
         this.file.set_integer(group_name, key, value);
+    }
+
+    public void set_uint(string group_name, string key, uint value)
+    {
+        this.file.set_uint64(group_name, key, value);
     }
 
     private string filename()

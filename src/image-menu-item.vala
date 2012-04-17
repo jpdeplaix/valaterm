@@ -41,14 +41,14 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     {
         if(this.have_custom_label)
         {
-            this.shortcut = new ShortcutBox(this.label);
+            this.shortcut = new ShortcutBox(this.label, this.stock_id);
         }
         else
         {
             Gtk.StockItem item;
 
             Gtk.Stock.lookup(this.stock_id, out item);
-            this.shortcut = new ShortcutBox(item.label.replace("_", ""));
+            this.shortcut = new ShortcutBox(item.label.replace("_", ""), this.stock_id);
         }
 
         this.shortcut.changed.connect(this.set_accelerator);
@@ -77,13 +77,14 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     {
         if(this.accel_key != null && this.accel_mod != null)
         {
-            this.remove_accelerator(this.accel, (!)(this.accel_key), (!)(this.accel_mod));
+            // FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=673879
+            this.remove_accelerator(this.accel, (!)(this.accel_key), this.accel_mod);
         }
         this.add_accelerator("activate", this.accel, accel_key, accel_mod, Gtk.AccelFlags.VISIBLE);
         this.accel_group = this.accel;
         this.accel_key = accel_key;
         this.accel_mod = accel_mod;
-        Settings.set_accel_key(this.stock_id, (!)this.accel_key);
+        Settings.set_accel_key(this.stock_id, (!)(this.accel_key));
         // FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=673879
         Settings.set_accel_mods(this.stock_id, this.accel_mod);
     }

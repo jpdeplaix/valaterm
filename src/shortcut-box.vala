@@ -29,7 +29,7 @@ public class ShortcutBox : Gtk.HBox
 
     public signal void changed(uint accel_key, Gdk.ModifierType accel_mods);
 
-    public ShortcutBox(string label)
+    public ShortcutBox(string label, string stock_id)
     {
         this.homogeneous = true;
         this.spacing = 10;
@@ -41,11 +41,46 @@ public class ShortcutBox : Gtk.HBox
         this.second_key.append_text("Alt");
 
         this.first_key.active = 0;
+        this.init_combobox(stock_id);
+        this.init_entry(stock_id);
 
         this.pack_start(this.label);
         this.pack_start(this.first_key);
         this.pack_start(this.second_key);
         this.pack_start(this.entry);
+    }
+
+    private void init_combobox(string label)
+    {
+        Gdk.ModifierType mods = Settings.get_accel_mods(label);
+
+        if((Gdk.ModifierType.CONTROL_MASK & mods) != 0)
+        {
+            this.first_key.active = 0;
+        }
+        else if((Gdk.ModifierType.SUPER_MASK & mods) != 0)
+        {
+            this.first_key.active = 1;
+        }
+
+        if((Gdk.ModifierType.SHIFT_MASK & mods) != 0)
+        {
+            this.second_key.active = 0;
+        }
+        else if((Gdk.ModifierType.META_MASK & mods) != 0)
+        {
+            this.second_key.active = 1;
+        }
+    }
+
+    private void init_entry(string label)
+    {
+        uint key = Settings.get_accel_key(label);
+
+        if(key != 0)
+        {
+            this.entry.text = Gdk.keyval_name(key);
+        }
     }
 
     public uint get_accel_key()

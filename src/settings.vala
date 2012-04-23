@@ -29,8 +29,7 @@ public class Settings : GLib.Object
     private const string TRANSPARENCY = "Transparency";
     private const string SHOW = "Show";
     private const string SHOW_SCROLLBAR = "Show-Scrollbar";
-    private const string ACCEL_KEY = "Accel-Key-";
-    private const string ACCEL_MODS = "Accel-Mods-";
+    private const string ACCEL = "Accel-";
 
     private static unowned ConfigFile file;
 
@@ -162,25 +161,14 @@ public class Settings : GLib.Object
         }
     }
 
-    public static uint get_accel_key(string item)
+    public static Accel get_accel(string item)
     {
-        return file.get_uint_key(MENUBAR, ACCEL_KEY + item, 0);
+        return new Accel(file.get_string_key(MENUBAR, ACCEL + item, ""));
     }
 
-    public static void set_accel_key(string item, uint value)
+    public static void set_accel(string item, Accel value)
     {
-        file.set_uint(MENUBAR, ACCEL_KEY + item, value);
-        file.write();
-    }
-
-    public static Gdk.ModifierType get_accel_mods(string item)
-    {
-        return (Gdk.ModifierType)file.get_integer_key(MENUBAR, ACCEL_MODS + item, 0);
-    }
-
-    public static void set_accel_mods(string item, Gdk.ModifierType value)
-    {
-        file.set_integer(MENUBAR, ACCEL_MODS + item, value);
+        file.set_string(MENUBAR, ACCEL + item, value.accel);
         file.write();
     }
 }

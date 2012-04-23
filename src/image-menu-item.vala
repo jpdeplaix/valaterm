@@ -18,9 +18,8 @@
 public class ImageMenuItem : Gtk.ImageMenuItem
 {
     private ShortcutBox shortcut;
-    private unowned Gtk.AccelGroup accel;
-    private uint? accel_key = null;
-    private Gdk.ModifierType? accel_mod = null;
+    private unowned Gtk.AccelGroup group;
+    private Accel accel;
     private string stock_id;
     private bool have_custom_label = false;
 
@@ -56,36 +55,31 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         return this.shortcut;
     }
 
-    public void set_accel(Gtk.AccelGroup accel)
+    public void set_accel(Gtk.AccelGroup group)
     {
-        this.accel = accel;
+        this.group = group;
         this.init_accelerator();
     }
 
     private void init_accelerator()
     {
-        var accel_key = Settings.get_accel_key(this.stock_id);
-        var accel_mods = Settings.get_accel_mods(this.stock_id);
-
-        if(accel_key != 0 && accel_mods != 0)
-        {
-            this.set_accelerator(accel_key, accel_mods);
-        }
+        this.accel = Settings.get_accel(this.stock_id);
+        this.set_accelerator(accel);
     }
 
-    private void set_accelerator(uint accel_key, Gdk.ModifierType accel_mod)
+    private void set_accelerator(Accel accel)
     {
-        if(this.accel_key != null && this.accel_mod != null)
+        if(this.accel.key != 0)
         {
-            // FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=673879
-            this.remove_accelerator(this.accel, (!)(this.accel_key), this.accel_mod);
+            this.remove_accelerator(this.group, this.accel.key, this.accel.mods);
         }
-        this.add_accelerator("activate", this.accel, accel_key, accel_mod, Gtk.AccelFlags.VISIBLE);
-        this.accel_group = this.accel;
-        this.accel_key = accel_key;
-        this.accel_mod = accel_mod;
-        Settings.set_accel_key(this.stock_id, (!)(this.accel_key));
-        // FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=673879
-        Settings.set_accel_mods(this.stock_id, this.accel_mod);
+
+        if(accel.key != 0)
+        {
+            this.add_accelerator("activate", this.group, accel.key, accel.mods, Gtk.AccelFlags.VISIBLE);
+            this.accel_group = this.group;
+            this.accel = accel;
+            Settings.set_accel(this.stock_id, this.accel);
+        }
     }
 }

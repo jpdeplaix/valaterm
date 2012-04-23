@@ -15,31 +15,20 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class ShortcutsManager : DefaultDialog
+public class Accel : GLib.Object
 {
-    private ShortcutBox[] shortcuts = new ShortcutBox[0];
+    public uint key { get; private set; }
+    public Gdk.ModifierType mods { get; private set; }
+    public string accel { get; private set; }
 
-    public ShortcutsManager(MainWindow parent_window, ImageMenuItem[] items)
+    public Accel(string accel)
     {
-        this.title = tr("ValaTerm shortcuts");
-        this.transient_for = parent_window;
+        uint key = 0;
+        Gdk.ModifierType mods = 0;
 
-        var main_box = (Gtk.Box)(this.get_content_area());
-
-        foreach(var item in items)
-        {
-            var shortcut = item.get_shortcut_box();
-
-            main_box.pack_start(shortcut);
-            this.shortcuts += shortcut;
-        }
-    }
-
-    protected override void ok_clicked()
-    {
-        foreach(var box in this.shortcuts)
-        {
-            box.changed(box.get_accel());
-        }
+        this.accel = accel;
+        Gtk.accelerator_parse(accel, out key, out mods);
+        this.key = key;
+        this.mods = mods;
     }
 }

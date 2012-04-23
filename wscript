@@ -124,6 +124,7 @@ def build(bld):
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
         source        = ['src/about.vala',
+                         'src/accel.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
                          'src/colors.vala',

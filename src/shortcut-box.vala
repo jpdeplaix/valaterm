@@ -27,7 +27,7 @@ public class ShortcutBox : Gtk.HBox
 #endif
     private Gtk.Entry entry = new Gtk.Entry();
 
-    public signal void changed(uint accel_key, Gdk.ModifierType accel_mods);
+    public signal void changed(Accel accel);
 
     public ShortcutBox(string label, string stock_id)
     {
@@ -52,7 +52,7 @@ public class ShortcutBox : Gtk.HBox
 
     private void init_combobox(string label)
     {
-        Gdk.ModifierType mods = Settings.get_accel_mods(label);
+        Gdk.ModifierType mods = Settings.get_accel(label).mods;
 
         if((Gdk.ModifierType.CONTROL_MASK & mods) != 0)
         {
@@ -75,7 +75,7 @@ public class ShortcutBox : Gtk.HBox
 
     private void init_entry(string label)
     {
-        uint key = Settings.get_accel_key(label);
+        uint key = Settings.get_accel(label).key;
 
         if(key != 0)
         {
@@ -83,35 +83,30 @@ public class ShortcutBox : Gtk.HBox
         }
     }
 
-    public uint get_accel_key()
+    public Accel get_accel()
     {
-        return Gdk.keyval_from_name(this.entry.text);
-    }
-
-    public Gdk.ModifierType get_accel_mods()
-    {
-        Gdk.ModifierType mods = 0;
+        string mods = "";
 
         switch(this.first_key.get_active_text())
         {
         case "Ctrl":
-            mods |= Gdk.ModifierType.CONTROL_MASK;
+            mods += "<Ctrl>";
             break;
         case "Super":
-            mods |= Gdk.ModifierType.SUPER_MASK;
+            mods += "<Super>";
             break;
         }
 
         switch(this.second_key.get_active_text())
         {
         case "Shift":
-            mods |= Gdk.ModifierType.SHIFT_MASK;
+            mods += "<Shift>";
             break;
         case "Alt":
-            mods |= Gdk.ModifierType.META_MASK;
+            mods += "<Alt>";
             break;
         }
 
-        return mods;
+        return new Accel(mods + this.entry.text);
     }
 }

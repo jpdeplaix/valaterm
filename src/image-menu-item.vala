@@ -19,7 +19,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
 {
     private ShortcutBox shortcut;
     private unowned Gtk.AccelGroup group;
-    private Accel accel;
+    private Accel accel = new Accel("");
     private string stock_id;
     private bool have_custom_label = false;
 
@@ -63,7 +63,8 @@ public class ImageMenuItem : Gtk.ImageMenuItem
 
     private void init_accelerator()
     {
-        this.accel = Settings.get_accel(this.stock_id);
+        var accel = Settings.get_accel(this.stock_id);
+
         this.set_accelerator(accel);
     }
 

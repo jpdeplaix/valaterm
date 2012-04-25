@@ -79,8 +79,9 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         {
             this.add_accelerator("activate", this.group, accel.key, accel.mods, Gtk.AccelFlags.VISIBLE);
             this.accel_group = this.group;
-            this.accel = accel;
-            Settings.set_accel(this.stock_id, this.accel);
         }
+
+        this.accel = accel;
+        Settings.set_accel(this.stock_id, this.accel);
     }
 }

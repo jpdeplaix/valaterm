@@ -26,8 +26,9 @@ public class Accel : GLib.Object
         uint key = 0;
         Gdk.ModifierType mods = 0;
 
-        this.accel = accel;
         Gtk.accelerator_parse(accel, out key, out mods);
+
+        this.accel = (key > 0) ? accel : "";
         this.key = key;
         this.mods = mods;
     }

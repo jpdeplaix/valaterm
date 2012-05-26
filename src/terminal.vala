@@ -36,7 +36,34 @@ public class Terminal : Vte.Terminal
                         Settings.background_color,
                         Colors.colors_palette);
 
+        this.active_mouse("""(https?|ftps?)://\S+""");
+
         this.active_signals();
+    }
+
+    private void active_mouse(string str)
+    {
+        try
+        {
+            var regex = new GLib.Regex(str);
+            int id = this.match_add_gregex(regex, 0);
+
+            this.match_set_cursor_type(id, Gdk.CursorType.HAND2);
+        }
+        catch(GLib.RegexError error)
+        {
+            Errors.print(error);
+        }
+    }
+
+    public string? get_link(long x, long y)
+    {
+        long col = x / this.get_char_width();
+        long row = y / this.get_char_height();
+        int tag;
+
+        // Vte.Terminal.match_check need a non-null tag instead of what is written in the doc (see: https://bugzilla.gnome.org/show_bug.cgi?id=676886)
+        return this.match_check(col, row, out tag);
     }
 
     private void active_signals()

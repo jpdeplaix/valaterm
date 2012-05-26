@@ -149,7 +149,25 @@ public class MainWindow : Gtk.Window
 
     private bool display_menu(Gdk.EventButton event)
     {
-        if(event.button == 3) // 3 is the right button
+        if(event.button == 1)
+        {
+            string? uri = this.terminal.get_link((long)event.x, (long)event.y);
+
+            if(uri != null)
+            {
+                try
+                {
+                    Gtk.show_uri(null, (!)uri, Gtk.get_current_event_time());
+
+                    return true;
+                }
+                catch(GLib.Error error)
+                {
+                    Errors.print(error);
+                }
+            }
+        }
+        else if(event.button == 3) // 3 is the right button
         {
             this.context_menu.show_all();
             context_menu.popup(null, null, null, event.button, event.time);

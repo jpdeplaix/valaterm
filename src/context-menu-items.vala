@@ -15,15 +15,12 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class CheckMenuItem : Gtk.CheckMenuItem
+public class ContextMenuItems : MenuItems
 {
-    public signal void item_checked(bool state);
+    private CheckMenuItem _display_menubar = new CheckMenuItem(tr("Menu Bar"), Settings.show_menubar);
 
-    public CheckMenuItem(string label, bool active)
+    public CheckMenuItem display_menubar
     {
-        this.label = label;
-        this.active = active;
-
-        this.activate.connect(() => this.item_checked(this.active));
+        get { return this._display_menubar; }
     }
 }

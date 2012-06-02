@@ -17,58 +17,36 @@
 
 public class Menubar : Gtk.MenuBar
 {
-    private ImageMenuItem item_about = new ImageMenuItem(Icons.ABOUT);
-    private ImageMenuItem item_preferences = new ImageMenuItem(Icons.PREFERENCES);
-    private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
-    private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
-    private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
-    private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
-    private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
-    private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
-    private ImageMenuItem item_shortcuts_manager = new ImageMenuItem(Icons.PREFERENCES, tr("Shortcuts Manager"));
-
-    public signal void about();
-    public signal void preferences();
-    public signal void clear();
-    public signal void copy();
-    public signal void paste();
-    public signal void select_all();
-    public signal void new_window();
-    public signal void quit();
-    public signal void shortcuts_manager();
-
-    public Menubar()
+    public Menubar(MenuBarItems items)
     {
         var menu_file = new MenuItem(tr("File"), {
-                this.item_new_window,
+                items.new_window,
                 new Gtk.SeparatorMenuItem(),
-                this.item_quit
+                items.quit
             });
 
         var menu_edit = new MenuItem(tr("Edit"), {
-                this.item_copy,
-                this.item_paste,
+                items.copy,
+                items.paste,
                 new Gtk.SeparatorMenuItem(),
-                this.item_select_all,
+                items.select_all,
                 new Gtk.SeparatorMenuItem(),
-                this.item_preferences
+                items.preferences
             });
 
         var menu_tools = new MenuItem(tr("Tools"), {
-                this.item_shortcuts_manager,
-                this.item_clear
+                items.shortcuts_manager,
+                items.clear
             });
 
         var menu_help = new MenuItem(tr("Help"), {
-                this.item_about
+                items.about
             });
 
         this.append(menu_file);
         this.append(menu_edit);
         this.append(menu_tools);
         this.append(menu_help);
-
-        this.active_signals();
     }
 
     public override void show()
@@ -77,43 +55,5 @@ public class Menubar : Gtk.MenuBar
         {
             base.show();
         }
-    }
-
-    public ImageMenuItem[] get_items()
-    {
-        return new ImageMenuItem[] {
-            this.item_about,
-            this.item_preferences,
-            this.item_clear,
-            this.item_copy,
-            this.item_paste,
-            this.item_select_all,
-            this.item_new_window,
-            this.item_quit,
-            this.item_shortcuts_manager
-        };
-    }
-
-    public void set_accel(Gtk.AccelGroup accel)
-    {
-        var items = this.get_items();
-
-        foreach(var item in items)
-        {
-            item.set_accel(accel);
-        }
-    }
-
-    private void active_signals()
-    {
-        this.item_about.activate.connect(() => this.about());
-        this.item_preferences.activate.connect(() => this.preferences());
-        this.item_clear.activate.connect(() => this.clear());
-        this.item_copy.activate.connect(() => this.copy());
-        this.item_paste.activate.connect(() => this.paste());
-        this.item_select_all.activate.connect(() => this.select_all());
-        this.item_new_window.activate.connect(() => this.new_window());
-        this.item_quit.activate.connect(() => this.quit());
-        this.item_shortcuts_manager.activate.connect(() => this.shortcuts_manager());
     }
 }

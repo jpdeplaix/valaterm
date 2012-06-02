@@ -17,16 +17,22 @@
 
 public class MainWindow : Gtk.Window
 {
-    private static uint window_count = 0;
-    private ContextMenu context_menu = new ContextMenu();
+    private ContextMenuItems context_menu_items = new ContextMenuItems();
+    private MenuBarItems menu_items = new MenuBarItems();
+    private ContextMenu context_menu;
+    private Menubar menubar;
 
-    private Menubar menubar = new Menubar();
+    private static uint window_count = 0;
+
     private Terminal terminal = new Terminal();
     private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null, null);
     private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
     public MainWindow()
     {
+        this.context_menu = new ContextMenu(this.context_menu_items);
+        this.menubar = new Menubar(this.menu_items);
+
         // FIXME: The window title keep this title instead of the shell title.
         this.title = "ValaTerm";
         this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
@@ -41,7 +47,7 @@ public class MainWindow : Gtk.Window
         main_box.pack_start(this.scrolled_window);
 
         this.add_accel_group(this.accel_group);
-        this.menubar.set_accel(this.accel_group);
+        this.menu_items.set_accel(this.accel_group);
 
         this.active_signals();
         this.add(main_box);
@@ -60,16 +66,11 @@ public class MainWindow : Gtk.Window
 
     private void active_signals()
     {
-        this.menubar.about.connect(() => About.display(this));
-        this.menubar.preferences.connect(() => this.show_preferences());
-        this.menubar.clear.connect(() => this.terminal.reset(true, true));
-        this.menubar.copy.connect(() => this.terminal.copy_clipboard());
-        this.menubar.paste.connect(() => this.terminal.paste_clipboard());
-        this.menubar.select_all.connect(() => this.terminal.select_all());
-        this.menubar.new_window.connect(this.new_window);
-        this.menubar.quit.connect(this.exit);
-        this.menubar.shortcuts_manager.connect(() => {
-                var dialog = new ShortcutsManager(this, this.menubar.get_items());
+        this.connect_menu_items(this.menu_items);
+        this.menu_items.about.activate.connect(() => About.display(this));
+        this.menu_items.quit.activate.connect(this.exit);
+        this.menu_items.shortcuts_manager.activate.connect(() => {
+                var dialog = new ShortcutsManager(this, this.menu_items.get_items());
                 dialog.show_all();
             });
 
@@ -82,13 +83,21 @@ public class MainWindow : Gtk.Window
         this.terminal.button_press_event.connect(this.display_menu);
         this.menubar.button_press_event.connect(this.display_menu);
 
-        this.context_menu.copy.connect(() => this.terminal.copy_clipboard());
-        this.context_menu.paste.connect(() => this.terminal.paste_clipboard());
-        this.context_menu.display_menubar.connect(this.menubar.set_visible);
-        this.context_menu.new_window.connect(() => this.new_window());
-        this.context_menu.select_all.connect(() => this.terminal.select_all());
-        this.context_menu.preferences.connect(() => this.show_preferences());
-        this.context_menu.clear.connect(() => this.terminal.reset(true, true));
+        this.connect_menu_items(this.context_menu_items);
+        this.context_menu_items.display_menubar.item_checked.connect((state) => {
+                Settings.show_menubar = state;
+                this.menubar.visible = state;
+            });
+    }
+
+    private void connect_menu_items(MenuItems menu_items)
+    {
+        menu_items.copy.activate.connect(() => this.terminal.copy_clipboard());
+        menu_items.paste.activate.connect(() => this.terminal.paste_clipboard());
+        menu_items.new_window.activate.connect(() => this.new_window());
+        menu_items.select_all.activate.connect(() => this.terminal.select_all());
+        menu_items.preferences.activate.connect(() => this.show_preferences());
+        menu_items.clear.activate.connect(() => this.terminal.reset(true, true));
     }
 
     private void show_preferences()

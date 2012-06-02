@@ -35,7 +35,8 @@ public class Settings : GLib.Object
 
     private static string? _command = null;
 
-    public static void init(ConfigFile file, string[] args) throws GLib.OptionError
+    public static void init(ConfigFile file,
+                            string[] args) throws GLib.OptionError
     {
         Settings.file = file;
 
@@ -47,7 +48,8 @@ public class Settings : GLib.Object
             }
             else
             {
-                throw new GLib.OptionError.FAILED("Command arguments are bad formated");
+                throw new GLib.OptionError.FAILED(
+                    "Command arguments are bad formated");
             }
         }
     }

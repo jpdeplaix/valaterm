@@ -22,7 +22,8 @@ public class MenuItems : GLib.Object
     protected ImageMenuItem _copy = new ImageMenuItem(Icons.COPY);
     protected ImageMenuItem _paste = new ImageMenuItem(Icons.PASTE);
     protected ImageMenuItem _select_all = new ImageMenuItem(Icons.SELECT_ALL);
-    protected ImageMenuItem _new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
+    protected ImageMenuItem _new_window = new ImageMenuItem(Icons.NEW,
+                                                            tr("New Window"));
 
     public ImageMenuItem preferences
     {

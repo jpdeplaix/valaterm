@@ -17,7 +17,8 @@
 
 public class MessageDialog : Gtk.MessageDialog
 {
-    public MessageDialog(MainWindow parent, string message, string secondary_text)
+    public MessageDialog(MainWindow parent, string message,
+                         string secondary_text)
     {
         Object(buttons: Gtk.ButtonsType.OK_CANCEL);
 

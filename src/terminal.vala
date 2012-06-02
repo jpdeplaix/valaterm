@@ -62,7 +62,9 @@ public class Terminal : Vte.Terminal
         long row = y / this.get_char_height();
         int tag;
 
-        // Vte.Terminal.match_check need a non-null tag instead of what is written in the doc (see: https://bugzilla.gnome.org/show_bug.cgi?id=676886)
+        // Vte.Terminal.match_check need a non-null tag instead of what is
+        // written in the doc
+        // (see: https://bugzilla.gnome.org/show_bug.cgi?id=676886)
         return this.match_check(col, row, out tag);
     }
 

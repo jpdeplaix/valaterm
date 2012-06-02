@@ -19,7 +19,8 @@ public class MenuBarItems : MenuItems
 {
     private ImageMenuItem _about = new ImageMenuItem(Icons.ABOUT);
     private ImageMenuItem _quit = new ImageMenuItem(Icons.QUIT);
-    private ImageMenuItem _shortcuts_manager = new ImageMenuItem(Icons.PREFERENCES, tr("Shortcuts Manager"));
+    private ImageMenuItem _shortcuts_manager = new ImageMenuItem(
+        Icons.PREFERENCES, tr("Shortcuts Manager"));
 
     public ImageMenuItem about
     {

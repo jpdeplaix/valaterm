@@ -25,7 +25,8 @@ public class MainWindow : Gtk.Window
     private static uint window_count = 0;
 
     private Terminal terminal = new Terminal();
-    private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null, null);
+    private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null,
+                                                                        null);
     private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
     public MainWindow()
@@ -60,7 +61,8 @@ public class MainWindow : Gtk.Window
         this.terminal.set_size_request(this.terminal.calcul_width(80),
                                        this.terminal.calcul_height(24));
 
-        // Do that after resize because Vte add rows if the main window is too small...
+        // Do that after resize because Vte add rows if the main window is
+        // too small...
         this.terminal.active_shell(shell_cwd);
     }
 
@@ -70,7 +72,8 @@ public class MainWindow : Gtk.Window
         this.menu_items.about.activate.connect(() => About.display(this));
         this.menu_items.quit.activate.connect(this.exit);
         this.menu_items.shortcuts_manager.activate.connect(() => {
-                var dialog = new ShortcutsManager(this, this.menu_items.get_items());
+                var dialog = new ShortcutsManager(this,
+                                                  this.menu_items.get_items());
                 dialog.show_all();
             });
 

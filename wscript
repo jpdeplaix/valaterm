@@ -30,9 +30,9 @@ def options(opt):
                    default = False)
 
 def configure(conf):
-    conf.env.CFLAGS = list()
-    conf.env.VALAFLAGS = list()
-    conf.env.LINKFLAGS = list()
+    CFLAGS = list()
+    VALAFLAGS = list()
+    LINKFLAGS = list()
 
     conf.load(['compiler_c', 'gnu_dirs'])
 
@@ -40,13 +40,13 @@ def configure(conf):
         conf.load(['intltool'])
 
     if conf.options.with_gtk3 == True:
-        conf.env.VALAFLAGS.extend(['--define=GTK3'])
+        VALAFLAGS.extend(['--define=GTK3'])
 
     conf.load('vala', funs = '')
     conf.check_vala(min_version = conf.options.with_gtk3 and (0, 13, 2) or (0, 10, 0))
 
     if conf.env.VALAC_VERSION >= (0, 12, 1):
-        conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
+        VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
 
     glib_package_version = conf.env.VALAC_VERSION >= (0, 12, 0) and '2.16.0' or '2.14.0'
     gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
@@ -82,7 +82,7 @@ def configure(conf):
             uselib_store    = 'VTE',
             atleast_version = '0.26',
             args            = '--cflags --libs')
-        conf.env.VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
+        VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
     except waflib.Errors.ConfigurationError:
         conf.check_cfg(
             package         = vte_package_name,
@@ -92,21 +92,25 @@ def configure(conf):
             args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
-    conf.env.CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])
+    CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])
     conf.define('VERSION', VERSION)
 
     if conf.options.disable_nls == False:
         conf.define('GETTEXT_PACKAGE', APPNAME)
-        conf.env.VALAFLAGS.extend(['--define=ENABLE_NLS'])
+        VALAFLAGS.extend(['--define=ENABLE_NLS'])
 
     if conf.options.debug == True:
-        conf.env.CFLAGS.extend(['-g3', '-ggdb3'])
-        conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG',
+        CFLAGS.extend(['-g3', '-ggdb3'])
+        VALAFLAGS.extend(['-g', '--define=DEBUG',
             '--enable-experimental-non-null'])
     else:
-        conf.env.CFLAGS.extend(['-O2'])
-        conf.env.VALAFLAGS.extend(['--thread'])
-        conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
+        CFLAGS.extend(['-O2'])
+        VALAFLAGS.extend(['--thread'])
+        LINKFLAGS.extend(['-Wl,-O1', '-s'])
+
+    conf.env.prepend_value('CFLAGS', CFLAGS)
+    conf.env.prepend_value('VALAFLAGS', VALAFLAGS)
+    conf.env.prepend_value('LINKFLAGS', LINKFLAGS)
 
     conf.env.debug = conf.options.debug
     conf.env.with_gtk3 = conf.options.with_gtk3

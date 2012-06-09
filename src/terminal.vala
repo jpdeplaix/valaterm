@@ -15,11 +15,13 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
+#if !(GTK3 || VALAC_SUP_0_17_2)
 // Vte.Terminal.match_check was not well defined in the gtk+-2.0 binding
 // before Valac 0.17.2 (see: https://bugzilla.gnome.org/show_bug.cgi?id=676882)
 private extern string? vte_terminal_match_check(Vte.Terminal terminal,
                                                 long col, long row,
                                                 out int tag);
+#endif
 
 public class Terminal : Vte.Terminal
 {

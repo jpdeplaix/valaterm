@@ -58,6 +58,7 @@ public class Terminal : Vte.Terminal
 
     public string? get_link(long x, long y)
     {
+#if GTK3 || VALAC_SUP_0_17_2
         long col = x / this.get_char_width();
         long row = y / this.get_char_height();
         int tag;
@@ -66,6 +67,10 @@ public class Terminal : Vte.Terminal
         // written in the doc
         // (see: https://bugzilla.gnome.org/show_bug.cgi?id=676886)
         return this.match_check(col, row, out tag);
+#else
+        // Can't do that properly and portable
+        return null;
+#endif
     }
 
     private void active_signals()

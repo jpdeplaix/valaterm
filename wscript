@@ -47,6 +47,8 @@ def configure(conf):
 
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
+    if conf.env.VALAC_VERSION >= (0, 17, 2):
+        VALAFLAGS.extend(['--define=VALAC_SUP_0_17_2'])
 
     glib_package_version = conf.env.VALAC_VERSION >= (0, 12, 0) and '2.16.0' or '2.14.0'
     gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'

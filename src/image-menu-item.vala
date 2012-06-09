@@ -47,7 +47,8 @@ public class ImageMenuItem : Gtk.ImageMenuItem
             Gtk.StockItem item;
 
             Gtk.Stock.lookup(this.stock_id, out item);
-            this.shortcut = new ShortcutBox(item.label.replace("_", ""), this.stock_id);
+            this.shortcut = new ShortcutBox(item.label.replace("_", ""),
+                                            this.stock_id);
         }
 
         this.shortcut.changed.connect(this.set_accelerator);
@@ -72,12 +73,14 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     {
         if(this.accel.key != 0)
         {
-            this.remove_accelerator(this.group, this.accel.key, this.accel.mods);
+            this.remove_accelerator(this.group, this.accel.key,
+                                    this.accel.mods);
         }
 
         if(accel.key != 0)
         {
-            this.add_accelerator("activate", this.group, accel.key, accel.mods, Gtk.AccelFlags.VISIBLE);
+            this.add_accelerator("activate", this.group, accel.key, accel.mods,
+                                 Gtk.AccelFlags.VISIBLE);
             this.accel_group = this.group;
         }
 

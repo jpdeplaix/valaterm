@@ -43,7 +43,8 @@ namespace Colors
 
         if(Gdk.Color.parse(color, out value) == false)
         {
-            throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color);
+            throw new GLib.ConvertError.FAILED(
+                "\"%s\" couldn't be parsed as color", color);
         }
 
         return value;

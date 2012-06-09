@@ -87,7 +87,8 @@ public class ConfigFile : GLib.Object
         return default_value;
     }
 
-    public Gdk.Color get_color_key(string group, string key, Gdk.Color default_value)
+    public Gdk.Color get_color_key(string group, string key,
+                                   Gdk.Color default_value)
     {
         try
         {

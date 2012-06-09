@@ -17,7 +17,8 @@
 
 public class ContextMenuItems : MenuItems
 {
-    private CheckMenuItem _display_menubar = new CheckMenuItem(tr("Menu Bar"), Settings.show_menubar);
+    private CheckMenuItem _display_menubar = new CheckMenuItem(
+        tr("Menu Bar"), Settings.show_menubar);
 
     public CheckMenuItem display_menubar
     {

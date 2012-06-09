@@ -87,7 +87,8 @@ public class MainWindow : Gtk.Window
         this.menubar.button_press_event.connect(this.display_menu);
 
         this.connect_menu_items(this.context_menu_items);
-        this.context_menu_items.display_menubar.item_checked.connect((state) => {
+        this.context_menu_items.display_menubar.item_checked.connect(
+            (state) => {
                 Settings.show_menubar = state;
                 this.menubar.visible = state;
             });
@@ -96,11 +97,14 @@ public class MainWindow : Gtk.Window
     private void connect_menu_items(MenuItems menu_items)
     {
         menu_items.copy.activate.connect(() => this.terminal.copy_clipboard());
-        menu_items.paste.activate.connect(() => this.terminal.paste_clipboard());
+        menu_items.paste.activate.connect(() =>
+                                          this.terminal.paste_clipboard());
         menu_items.new_window.activate.connect(() => this.new_window());
-        menu_items.select_all.activate.connect(() => this.terminal.select_all());
+        menu_items.select_all.activate.connect(() =>
+                                               this.terminal.select_all());
         menu_items.preferences.activate.connect(() => this.show_preferences());
-        menu_items.clear.activate.connect(() => this.terminal.reset(true, true));
+        menu_items.clear.activate.connect(() =>
+                                          this.terminal.reset(true, true));
     }
 
     private void show_preferences()
@@ -108,10 +112,14 @@ public class MainWindow : Gtk.Window
         var dialog = new ParametersWindow(this);
 
         dialog.font_changed.connect(this.terminal.set_font_from_string);
-        dialog.background_color_changed.connect(this.terminal.set_color_background);
-        dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
-        dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
-        dialog.transparency_changed.connect(this.terminal.set_background_transparent);
+        dialog.background_color_changed.connect(
+            this.terminal.set_color_background);
+        dialog.foreground_color_changed.connect(
+            this.terminal.set_color_foreground);
+        dialog.scrollback_lines_changed.connect(
+            this.terminal.set_scrollback_lines);
+        dialog.transparency_changed.connect(
+            this.terminal.set_background_transparent);
         dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 
         dialog.show_all();
@@ -143,10 +151,13 @@ public class MainWindow : Gtk.Window
 
         if(this.terminal.has_foreground_process())
         {
-            var dialog = new MessageDialog(this, tr("There is still a process " +
-                                                    "running in this terminal. " +
-                                                    "Closing the window will kill it."),
-                                           tr("Would you closing this window ?"));
+            var dialog = new MessageDialog(this,
+                                           tr("There is still a process " +
+                                              "running in this terminal. " +
+                                              "Closing the window will " +
+                                              "kill it."),
+                                           tr("Would you closing " +
+                                              "this window ?"));
 
             if(dialog.run() == Gtk.ResponseType.CANCEL)
             {

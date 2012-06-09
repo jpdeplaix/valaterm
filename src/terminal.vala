@@ -15,6 +15,12 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
+// Vte.Terminal.match_check was not well defined in the gtk+-2.0 binding
+// before Valac 0.17.2 (see: https://bugzilla.gnome.org/show_bug.cgi?id=676882)
+private extern string? vte_terminal_match_check(Vte.Terminal terminal,
+                                                long col, long row,
+                                                out int tag);
+
 public class Terminal : Vte.Terminal
 {
     private GLib.Pid? child_pid = null;
@@ -58,7 +64,6 @@ public class Terminal : Vte.Terminal
 
     public string? get_link(long x, long y)
     {
-#if GTK3 || VALAC_SUP_0_17_2
         long col = x / this.get_char_width();
         long row = y / this.get_char_height();
         int tag;
@@ -66,10 +71,10 @@ public class Terminal : Vte.Terminal
         // Vte.Terminal.match_check need a non-null tag instead of what is
         // written in the doc
         // (see: https://bugzilla.gnome.org/show_bug.cgi?id=676886)
+#if GTK3 || VALAC_SUP_0_17_2
         return this.match_check(col, row, out tag);
 #else
-        // Can't do that properly and portable
-        return null;
+        return vte_terminal_match_check(this, col, row, out tag);
 #endif
     }
 

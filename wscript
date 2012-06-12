@@ -102,7 +102,7 @@ def configure(conf):
         VALAFLAGS.extend(['--define=ENABLE_NLS'])
 
     if conf.options.debug == True:
-        CFLAGS.extend(['-g3', '-ggdb3'])
+        CFLAGS.extend(['-ggdb3'])
         VALAFLAGS.extend(['-g', '--define=DEBUG',
             '--enable-experimental-non-null'])
     else:

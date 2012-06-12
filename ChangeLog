@@ -1,3 +1,16 @@
+0.5
+===
+
+ * Can now manage shortcuts
+ * Change the main website
+ * Context menu improved
+ * Waf updated to 1.6.11
+ * Add the execution argument: -c
+ * Open and highlight web links with left mouse button
+ * Bug fixed: Resize is not allowed with Gtk2 using Gtk.Window.resize
+ * Remove the NEWS file
+ * Many quality improvments
+
 0.4.3
 =====
 

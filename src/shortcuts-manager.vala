@@ -21,7 +21,7 @@ public class ShortcutsManager : DefaultDialog
 
     public ShortcutsManager(MainWindow parent_window, ImageMenuItem[] items)
     {
-        this.title = tr("ValaTerm shortcuts");
+        this.title = tr("Shortcuts Manager");
         this.transient_for = parent_window;
 
         var main_box = (Gtk.Box)(this.get_content_area());

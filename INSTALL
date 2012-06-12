@@ -1,12 +1,19 @@
 Waf executable version: 1.6.11
 
-If you want to compile the binary on debug, add --debug when you execute: ./waf configure.
-For the others options see: ./waf --help
-
 === How to install ===
 
-   # ./waf configure build install [--debug] [--with-gtk3] [--disable-nls]
+3 phases is required:
 
-If you using Clang/LLVM as compiler, configure with:
+    $ ./waf configure
+    $ ./waf build
+    # ./waf install
 
-   $ CC=clang ./waf configure [--debug] [--with-gtk3] [--disable-nls]
+You can modify the default settings by append arguments to the configure phase.
+To see them, execute:
+
+    $ ./waf --help
+
+You can also append your own environment variables (CFLAGS, VALAFLAGS, LDFLAGS, CC)
+For instance, if you want to use Clang/LLVM as compiler, configure with:
+
+   $ CC=clang ./waf configure

@@ -33,6 +33,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         {
             this.label = (!)(label);
             this.have_custom_label = true;
+            this.stock_id = (!)(label);
         }
     }
 

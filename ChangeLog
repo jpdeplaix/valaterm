@@ -9,6 +9,7 @@
  * Open and highlight web links with left mouse button
  * Bug fixed: Resize is not allowed with Gtk2 using Gtk.Window.resize
  * Remove the NEWS file
+ * Remove the compatiblity with valac < 0.12.1 and vte < 0.26
  * Many quality improvments
 
 0.4.3

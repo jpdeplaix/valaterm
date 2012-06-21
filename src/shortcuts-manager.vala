@@ -30,8 +30,11 @@ public class ShortcutsManager : DefaultDialog
         {
             var shortcut = item.get_shortcut_box();
 
-            main_box.pack_start(shortcut);
-            this.shortcuts += shortcut;
+            if(shortcut != null)
+            {
+                main_box.pack_start((!)(shortcut));
+                this.shortcuts += (!)(shortcut);
+            }
         }
     }
 

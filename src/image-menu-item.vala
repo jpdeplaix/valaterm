@@ -37,7 +37,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         }
     }
 
-    public ShortcutBox get_shortcut_box()
+    public ShortcutBox? get_shortcut_box()
     {
         if(this.have_custom_label)
         {
@@ -47,7 +47,10 @@ public class ImageMenuItem : Gtk.ImageMenuItem
         {
             Gtk.StockItem item;
 
-            Gtk.Stock.lookup(this.stock_id, out item);
+            if(!Gtk.Stock.lookup(this.stock_id, out item))
+            {
+                return null;
+            }
             this.shortcut = new ShortcutBox(item.label.replace("_", ""),
                                             this.stock_id);
         }

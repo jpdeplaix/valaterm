@@ -48,13 +48,14 @@ def configure(conf):
     if conf.env.VALAC_VERSION >= (0, 17, 2):
         VALAFLAGS.extend(['--define=VALAC_SUP_0_17_2'])
 
+    glib_package_version = '2.16.0'
     gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
     vte_package_name = conf.options.with_gtk3 and 'vte-2.90' or 'vte'
 
     conf.check_cfg(
         package         = 'glib-2.0',
         uselib_store    = 'GLIB',
-        atleast_version = '2.16.0',
+        atleast_version = glib_package_version,
         args            = '--cflags --libs')
 
     conf.check_cfg(

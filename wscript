@@ -49,6 +49,7 @@ def configure(conf):
         VALAFLAGS.extend(['--define=VALAC_SUP_0_17_2'])
 
     glib_package_version = '2.16.0'
+    gtk_package_version = conf.options.with_gtk3 and '3.0' or '2.16'
     gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
     vte_package_name = conf.options.with_gtk3 and 'vte-2.90' or 'vte'
 
@@ -73,7 +74,7 @@ def configure(conf):
     conf.check_cfg(
         package         = gtk_package_name,
         uselib_store    = 'GTK',
-        atleast_version = '2.16',
+        atleast_version = gtk_package_version,
         args            = '--cflags --libs')
 
     conf.check_cfg(

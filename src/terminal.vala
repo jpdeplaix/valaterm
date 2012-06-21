@@ -26,10 +26,7 @@ private extern string? vte_terminal_match_check(Vte.Terminal terminal,
 public class Terminal : Vte.Terminal
 {
     private GLib.Pid? child_pid = null;
-
-#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
     private unowned string shell = Terminal.get_shell();
-#endif
 
     public signal void title_changed(string title);
 
@@ -89,8 +86,6 @@ public class Terminal : Vte.Terminal
 
     public void active_shell(string dir)
     {
-// This part can only be compiled by valac >= 0.12.1 (see commit: c677)
-#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
         try
         {
             var args = new string[0];
@@ -111,10 +106,6 @@ public class Terminal : Vte.Terminal
         {
             Errors.print(error);
         }
-#else
-        this.child_pid = this.fork_command(null, null, null, dir,
-                                           true, true, true);
-#endif
     }
 
     public int calcul_width(int column_count)
@@ -139,7 +130,6 @@ public class Terminal : Vte.Terminal
         return fgpid != this.child_pid && fgpid != -1;
     }
 
-#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
     private static unowned string get_shell()
     {
         unowned string? shell = GLib.Environment.get_variable("SHELL");
@@ -151,7 +141,6 @@ public class Terminal : Vte.Terminal
 
         return (!)(shell);
     }
-#endif
 
     //FIXME: Is it portable ?
     public string? get_shell_cwd()

@@ -17,7 +17,6 @@
 
 namespace Icons
 {
-#if VALA_0_12
     const string ABOUT = Gtk.Stock.ABOUT;
     const string PREFERENCES = Gtk.Stock.PREFERENCES;
     const string CLEAR = Gtk.Stock.CLEAR;
@@ -28,16 +27,4 @@ namespace Icons
     const string OK = Gtk.Stock.OK;
     const string CANCEL = Gtk.Stock.CANCEL;
     const string SELECT_ALL = Gtk.Stock.SELECT_ALL;
-#else
-    const string ABOUT = Gtk.STOCK_ABOUT;
-    const string PREFERENCES = Gtk.STOCK_PREFERENCES;
-    const string CLEAR = Gtk.STOCK_CLEAR;
-    const string COPY = Gtk.STOCK_COPY;
-    const string PASTE = Gtk.STOCK_PASTE;
-    const string NEW = Gtk.STOCK_NEW;
-    const string QUIT = Gtk.STOCK_QUIT;
-    const string OK = Gtk.STOCK_OK;
-    const string CANCEL = Gtk.STOCK_CANCEL;
-    const string SELECT_ALL = Gtk.STOCK_SELECT_ALL;
-#endif
 }

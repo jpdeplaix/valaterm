@@ -43,21 +43,18 @@ def configure(conf):
         VALAFLAGS.extend(['--define=GTK3'])
 
     conf.load('vala', funs = '')
-    conf.check_vala(min_version = conf.options.with_gtk3 and (0, 13, 2) or (0, 10, 0))
+    conf.check_vala(min_version = conf.options.with_gtk3 and (0, 13, 2) or (0, 12, 1))
 
-    if conf.env.VALAC_VERSION >= (0, 12, 1):
-        VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
     if conf.env.VALAC_VERSION >= (0, 17, 2):
         VALAFLAGS.extend(['--define=VALAC_SUP_0_17_2'])
 
-    glib_package_version = conf.env.VALAC_VERSION >= (0, 12, 0) and '2.16.0' or '2.14.0'
     gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
     vte_package_name = conf.options.with_gtk3 and 'vte-2.90' or 'vte'
 
     conf.check_cfg(
         package         = 'glib-2.0',
         uselib_store    = 'GLIB',
-        atleast_version = glib_package_version,
+        atleast_version = '2.16.0',
         args            = '--cflags --libs')
 
     conf.check_cfg(
@@ -78,20 +75,11 @@ def configure(conf):
         atleast_version = '2.16',
         args            = '--cflags --libs')
 
-    try:
-        conf.check_cfg(
-            package         = vte_package_name,
-            uselib_store    = 'VTE',
-            atleast_version = '0.26',
-            args            = '--cflags --libs')
-        VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
-    except waflib.Errors.ConfigurationError:
-        conf.check_cfg(
-            package         = vte_package_name,
-            uselib_store    = 'VTE',
-            max_version     = '0.26',
-            atleast_version = '0.20',
-            args            = '--cflags --libs')
+    conf.check_cfg(
+        package         = vte_package_name,
+        uselib_store    = 'VTE',
+        atleast_version = '0.26',
+        args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
     CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])

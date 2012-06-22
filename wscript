@@ -29,6 +29,13 @@ def options(opt):
                    action = 'store_true',
                    default = False)
 
+    opt.add_option('--custom-flags',
+                   help = 'Use the user defined CFLAGS/LDFLAGS/VALAFLAGS only'
+                   ' instead of the defaults ones followed by the'
+                   ' user ones.',
+                   action = 'store_true',
+                   default = False)
+
 def configure(conf):
     CFLAGS = list()
     VALAFLAGS = list()
@@ -84,7 +91,8 @@ def configure(conf):
         args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
-    CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])
+    CFLAGS.extend(['-I/usr/local/include', '-include', 'config.h'])
+    VALAFLAGS.extend(['--thread'])
     conf.define('VERSION', VERSION)
 
     if conf.options.disable_nls == False:
@@ -95,9 +103,8 @@ def configure(conf):
         CFLAGS.extend(['-ggdb3'])
         VALAFLAGS.extend(['-g', '--define=DEBUG',
             '--enable-experimental-non-null'])
-    else:
-        CFLAGS.extend(['-O2'])
-        VALAFLAGS.extend(['--thread'])
+    elif conf.options.custom_flags == False:
+        CFLAGS.extend(['-pipe', '-O2'])
         LINKFLAGS.extend(['-Wl,-O1', '-s'])
 
     conf.env.prepend_value('CFLAGS', CFLAGS)

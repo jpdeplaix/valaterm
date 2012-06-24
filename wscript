@@ -102,7 +102,7 @@ def configure(conf):
     if conf.options.debug == True:
         CFLAGS.extend(['-ggdb3'])
         VALAFLAGS.extend(['-g', '--define=DEBUG',
-            '--enable-experimental-non-null'])
+            '--enable-experimental-non-null', '--enable-checking'])
     elif conf.options.custom_flags == False:
         CFLAGS.extend(['-pipe', '-O2'])
         LINKFLAGS.extend(['-Wl,-O1', '-s'])

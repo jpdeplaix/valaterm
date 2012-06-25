@@ -3,7 +3,7 @@
 # Copyright © 2011 Jacques-Pascal Deplaix
 
 APPNAME = 'valaterm'
-VERSION = '0.5'
+VERSION = '0.5.1'
 
 top = '.'
 out = 'build'

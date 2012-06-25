@@ -1,3 +1,10 @@
+0.5.1
+=====
+
+ * Bug fixed: Can't resize the window below the default size
+ * Add the --custom-flags to the configure options
+ * Minor debug improvment
+
 0.5
 ===
 

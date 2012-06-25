@@ -60,6 +60,7 @@ public class MainWindow : Gtk.Window
 
         this.terminal.set_size_request(this.terminal.calcul_width(80),
                                        this.terminal.calcul_height(24));
+        this.terminal.set_size_request(0, 0);
 
         // Do that after resize because Vte add rows if the main window is
         // too small...

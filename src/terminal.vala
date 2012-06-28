@@ -26,7 +26,7 @@ private extern string? vte_terminal_match_check(Vte.Terminal terminal,
 public class Terminal : Vte.Terminal
 {
     private GLib.Pid? child_pid = null;
-    private unowned string shell = Terminal.get_shell();
+    private string shell = Terminal.get_shell();
 
     public signal void title_changed(string title);
 
@@ -133,9 +133,9 @@ public class Terminal : Vte.Terminal
         return fgpid != this.child_pid && fgpid != -1;
     }
 
-    private static unowned string get_shell()
+    private static string get_shell()
     {
-        unowned string? shell = GLib.Environment.get_variable("SHELL");
+        string? shell = Vte.get_user_shell();
 
         if(shell == null)
         {

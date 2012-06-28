@@ -146,6 +146,7 @@ public class Terminal : Vte.Terminal
     }
 
     //FIXME: Is it portable ?
+    //Will be replaced by Vte.Terminal.get_current_directory_uri (vte 0.35)
     public string? get_shell_cwd()
     {
         int pid = (!)(this.child_pid);

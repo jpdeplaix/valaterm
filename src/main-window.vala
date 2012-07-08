@@ -86,6 +86,7 @@ public class MainWindow : Gtk.Window
         this.terminal.title_changed.connect(this.set_title);
 
         this.terminal.button_press_event.connect(this.display_menu);
+        // TODO: Fix the left click
         this.menubar.button_press_event.connect(this.display_menu);
 
         this.connect_menu_items(this.context_menu_items);

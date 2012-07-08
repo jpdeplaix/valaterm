@@ -21,6 +21,7 @@ public class MainWindow : Gtk.Window
     private MenuBarItems menu_items = new MenuBarItems();
     private ContextMenu context_menu;
     private Menubar menubar;
+    private string? copy_link_uri = null;
 
     private static uint window_count = 0;
 
@@ -92,6 +93,14 @@ public class MainWindow : Gtk.Window
             (state) => {
                 Settings.show_menubar = state;
                 this.menubar.visible = state;
+            });
+        this.context_menu_items.copy_link.activate.connect(() => {
+                if(this.copy_link_uri != null)
+                {
+                    Gtk.Clipboard clip = this.get_clipboard(
+                        Gdk.SELECTION_CLIPBOARD);
+                    clip.set_text((!)(this.copy_link_uri), -1);
+                }
             });
     }
 
@@ -195,7 +204,12 @@ public class MainWindow : Gtk.Window
         }
         else if(event.button == 3) // 3 is the right button
         {
+            string? uri = this.terminal.get_link((long)event.x,
+                                                 (long)event.y);
+
             this.context_menu.show_all();
+            this.context_menu.copy_link_set_visible(uri != null);
+            this.copy_link_uri = uri;
             context_menu.popup(null, null, null, event.button, event.time);
 
             return true;

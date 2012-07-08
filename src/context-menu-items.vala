@@ -19,9 +19,16 @@ public class ContextMenuItems : MenuItems
 {
     private CheckMenuItem _display_menubar = new CheckMenuItem(
         tr("Menu Bar"), Settings.show_menubar);
+    private ImageMenuItem _copy_link = new ImageMenuItem(
+        Icons.COPY, tr("Copy Link Location"));
 
     public CheckMenuItem display_menubar
     {
         get { return this._display_menubar; }
+    }
+
+    public ImageMenuItem copy_link
+    {
+        get { return this._copy_link; }
     }
 }

@@ -17,8 +17,18 @@
 
 public class ContextMenu : Gtk.Menu
 {
+    private ImageMenuItem copy_link;
+    private Gtk.SeparatorMenuItem copy_link_separator;
+
     public ContextMenu(ContextMenuItems items)
     {
+        this.copy_link = items.copy_link;
+        this.copy_link_separator = new Gtk.SeparatorMenuItem();
+
+        this.copy_link_set_visible(false);
+
+        this.append(this.copy_link);
+        this.append(this.copy_link_separator);
         this.append(items.copy);
         this.append(items.paste);
         this.append(items.select_all);
@@ -29,5 +39,11 @@ public class ContextMenu : Gtk.Menu
         this.append(items.preferences);
         this.append(new Gtk.SeparatorMenuItem());
         this.append(items.clear);
+    }
+
+    public void copy_link_set_visible(bool is_visible)
+    {
+        this.copy_link.visible = is_visible;
+        this.copy_link_separator.visible = is_visible;
     }
 }

@@ -148,7 +148,7 @@ public class MainWindow : Gtk.Window
 
     private bool on_delete()
     {
-        bool return_value = true;
+        bool return_value = false;
 
         if(this.terminal.has_foreground_process())
         {
@@ -159,6 +159,8 @@ public class MainWindow : Gtk.Window
                                               "kill it."),
                                            tr("Would you closing " +
                                               "this window ?"));
+
+            return_value = true;
 
             if(dialog.run() == Gtk.ResponseType.OK)
             {

@@ -41,7 +41,7 @@ def configure(conf):
     VALAFLAGS = list()
     LINKFLAGS = list()
 
-    conf.load(['compiler_c', 'gnu_dirs'])
+    conf.load(['compiler_c', 'vala'])
 
     if conf.options.disable_nls != True:
         conf.load(['intltool'])

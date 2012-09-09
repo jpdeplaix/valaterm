@@ -48,7 +48,7 @@ public class MainWindow : Gtk.Window
         main_box.pack_start(this.scrolled_window);
 
         this.add_accel_group(this.accel_group);
-        this.menu_items.set_accel(this.accel_group);
+        this.menu_items.set_accel.begin(this.accel_group);
 
         this.active_signals();
         this.add(main_box);
@@ -64,7 +64,7 @@ public class MainWindow : Gtk.Window
 
         // Do that after resize because Vte add rows if the main window is
         // too small...
-        this.terminal.active_shell(shell_cwd);
+        this.terminal.active_shell.begin(shell_cwd);
     }
 
     private void active_signals()

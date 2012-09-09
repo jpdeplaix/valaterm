@@ -84,8 +84,11 @@ public class Terminal : Vte.Terminal
             });
     }
 
-    public void active_shell(string dir)
+    public async void active_shell(string dir)
     {
+        Idle.add(this.active_shell.callback, GLib.Priority.LOW);
+        yield;
+
         try
         {
             var args = new string[0];

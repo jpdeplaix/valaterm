@@ -39,7 +39,7 @@ public class MainWindow : Gtk.Window
         this.title = "ValaTerm";
         this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 
-        this.window_count++;
+        MainWindow.window_count++;
 
         this.show_scrollbar(Settings.show_scrollbar);
         this.scrolled_window.add(this.terminal);
@@ -138,13 +138,13 @@ public class MainWindow : Gtk.Window
 
     private void on_destroy()
     {
-        if(this.window_count < 2)
+        if(MainWindow.window_count < 2)
         {
             Gtk.main_quit();
         }
         else
         {
-            this.window_count--;
+            MainWindow.window_count--;
         }
     }
 

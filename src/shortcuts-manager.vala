@@ -44,5 +44,7 @@ public class ShortcutsManager : DefaultDialog
         {
             box.changed(box.get_accel());
         }
+
+        Settings.write();
     }
 }

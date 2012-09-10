@@ -100,5 +100,7 @@ public class ParametersWindow : DefaultDialog
             Settings.show_scrollbar = show_scrollbar;
             this.show_scrollbar_changed(show_scrollbar);
         }
+
+        Settings.write();
     }
 }

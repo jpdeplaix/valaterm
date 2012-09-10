@@ -50,18 +50,12 @@ public class MenuBarItems : MenuItems
         };
     }
 
-    public async void set_accel(Gtk.AccelGroup accel)
+    public void set_accel(Gtk.AccelGroup accel)
     {
-        Idle.add(this.set_accel.callback);
-        yield;
-
         var items = this.get_items();
 
         foreach(var item in items)
         {
-            Idle.add(this.set_accel.callback);
-            yield;
-
             item.set_accel(accel);
         }
     }

@@ -54,6 +54,11 @@ public class Settings : GLib.Object
         }
     }
 
+    public static void write()
+    {
+        file.write();
+    }
+
     public static string? command
     {
         get
@@ -73,7 +78,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_string(TERMINAL, FONT, value);
-            file.write();
         }
     }
 
@@ -88,7 +92,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_string(TERMINAL, BACKGROUND_COLOR, value.to_string());
-            file.write();
         }
     }
 
@@ -103,7 +106,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string());
-            file.write();
         }
     }
 
@@ -117,7 +119,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_integer(TERMINAL, SCROLLBACK_LINES, value);
-            file.write();
         }
     }
 
@@ -131,7 +132,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_boolean(TERMINAL, TRANSPARENCY, value);
-            file.write();
         }
     }
 
@@ -145,7 +145,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_boolean(MENUBAR, SHOW, value);
-            file.write();
         }
     }
 
@@ -159,7 +158,6 @@ public class Settings : GLib.Object
         set
         {
             file.set_boolean(TERMINAL, SHOW_SCROLLBAR, value);
-            file.write();
         }
     }
 
@@ -171,6 +169,5 @@ public class Settings : GLib.Object
     public static void set_accel(string item, Accel value)
     {
         file.set_string(MENUBAR, ACCEL + item, value.accel);
-        file.write();
     }
 }

@@ -31,8 +31,9 @@ public class ConfigFile : GLib.Object
             if(!(error is GLib.KeyFileError.PARSE))
             {
                 this.has_errors = true;
-                // FIXME: Do something !
             }
+
+            Errors.print_configfile(error);
         }
     }
 
@@ -44,9 +45,7 @@ public class ConfigFile : GLib.Object
         }
         catch(GLib.KeyFileError error)
         {
-#if DEBUG
-            this.display_get_key_error(error.message);
-#endif
+            Errors.print_configfile(error);
         }
 
         this.file.set_string(group, key, default_value);
@@ -61,9 +60,7 @@ public class ConfigFile : GLib.Object
         }
         catch(GLib.KeyFileError error)
         {
-#if DEBUG
-            this.display_get_key_error(error.message);
-#endif
+            Errors.print_configfile(error);
         }
 
         this.file.set_integer(group, key, default_value);
@@ -78,9 +75,7 @@ public class ConfigFile : GLib.Object
         }
         catch(GLib.KeyFileError error)
         {
-#if DEBUG
-            this.display_get_key_error(error.message);
-#endif
+            Errors.print_configfile(error);
         }
 
         this.file.set_boolean(group, key, default_value);
@@ -96,9 +91,7 @@ public class ConfigFile : GLib.Object
         }
         catch(GLib.Error error)
         {
-#if DEBUG
-            this.display_get_key_error(error.message);
-#endif
+            Errors.print_configfile(error);
         }
 
         this.file.set_string(group, key, default_value.to_string());
@@ -113,9 +106,7 @@ public class ConfigFile : GLib.Object
         }
         catch(GLib.Error error)
         {
-#if DEBUG
-            this.display_get_key_error(error.message);
-#endif
+            Errors.print_configfile(error);
         }
 
         this.file.set_uint64(group, key, default_value);
@@ -132,7 +123,7 @@ public class ConfigFile : GLib.Object
             }
             catch(GLib.FileError error)
             {
-                // FIXME: Do something !
+                Errors.print_configfile(error);
             }
         }
     }
@@ -185,11 +176,4 @@ public class ConfigFile : GLib.Object
             FileStream.open(file, "w");
         }
     }
-
-#if DEBUG
-    private void display_get_key_error(string message)
-    {
-        GLib.stderr.printf("Error: %s. Using the default value.\n", message);
-    }
-#endif
 }

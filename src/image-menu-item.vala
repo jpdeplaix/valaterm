@@ -77,15 +77,25 @@ public class ImageMenuItem : Gtk.ImageMenuItem
     {
         if(this.accel.key != 0)
         {
+            // [1] Only for display the key in the menu item
             this.remove_accelerator(this.group, this.accel.key,
                                     this.accel.mods);
+            // [2] For that the key becomes accessible for the whole window
+            this.group.disconnect_key(this.accel.key,
+                                      this.accel.mods);
         }
 
         if(accel.key != 0)
         {
+            // See comment [1]
             this.add_accelerator("activate", this.group, accel.key, accel.mods,
                                  Gtk.AccelFlags.VISIBLE);
-            this.accel_group = this.group;
+            // See comment [2]
+            this.group.connect(accel.key, accel.mods,
+                               Gtk.AccelFlags.VISIBLE, () => {
+                                   this.activate();
+                                   return true;
+                               });
         }
 
         this.accel = accel;

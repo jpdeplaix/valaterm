@@ -94,6 +94,7 @@ public class MainWindow : Gtk.Window
             (state) => {
                 Settings.show_menubar = state;
                 this.menubar.visible = state;
+                Settings.write();
             });
         this.context_menu_items.copy_link.activate.connect(() => {
                 if(this.copy_link_uri != null)

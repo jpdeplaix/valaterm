@@ -37,11 +37,6 @@ public class ConfigFile : GLib.Object
         }
     }
 
-    ~ConfigFile()
-    {
-        this.write();
-    }
-
     public string get_string_key(string group, string key, string default_value)
     {
         try

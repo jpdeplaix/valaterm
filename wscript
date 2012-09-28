@@ -18,9 +18,8 @@ def options(opt):
                    action = 'store_true',
                    default = False)
 
-    opt.add_option('--with-gtk3',
-                   help = 'Compile with Gtk 3.0 instead of Gtk 2.0 (Experimental mode).'
-                   ' Works only with Vala >= 0.13.2',
+    opt.add_option('--with-gtk2',
+                   help = 'Compile with GTK+ 2 instead of GTK+ 3',
                    action = 'store_true',
                    default = False)
 
@@ -46,19 +45,19 @@ def configure(conf):
     if conf.options.disable_nls != True:
         conf.load(['intltool'])
 
-    if conf.options.with_gtk3 == True:
-        VALAFLAGS.extend(['--define=GTK3'])
+    if conf.options.with_gtk2 == True:
+        VALAFLAGS.extend(['--define=GTK2'])
 
     conf.load('vala', funs = '')
-    conf.check_vala(min_version = conf.options.with_gtk3 and (0, 13, 2) or (0, 12, 1))
+    conf.check_vala(min_version = conf.options.with_gtk2 and (0, 12, 1) or (0, 13, 2))
 
     if conf.env.VALAC_VERSION >= (0, 17, 2):
         VALAFLAGS.extend(['--define=VALAC_SUP_0_17_2'])
 
     glib_package_version = '2.16.0'
-    gtk_package_version = conf.options.with_gtk3 and '3.0' or '2.16'
-    gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
-    vte_package_name = conf.options.with_gtk3 and 'vte-2.90' or 'vte'
+    gtk_package_version = conf.options.with_gtk2 and '2.16' or '3.0'
+    gtk_package_name = conf.options.with_gtk2 and 'gtk+-2.0' or 'gtk+-3.0'
+    vte_package_name = conf.options.with_gtk2 and 'vte' or 'vte-2.90'
 
     conf.check_cfg(
         package         = 'glib-2.0',
@@ -112,7 +111,7 @@ def configure(conf):
     conf.env.prepend_value('LINKFLAGS', LINKFLAGS)
 
     conf.env.debug = conf.options.debug
-    conf.env.with_gtk3 = conf.options.with_gtk3
+    conf.env.with_gtk2 = conf.options.with_gtk2
     conf.env.disable_nls = conf.options.disable_nls
 
     conf.write_config_header('config.h')
@@ -122,7 +121,7 @@ def build(bld):
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     bld.program(
-        packages      = [bld.env.with_gtk3 and 'vte-2.90' or 'vte', 'config', 'posix'],
+        packages      = [bld.env.with_gtk2 and 'vte' or 'vte-2.90', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],

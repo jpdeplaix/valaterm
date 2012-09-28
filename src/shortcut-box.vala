@@ -18,12 +18,12 @@
 public class ShortcutBox : Gtk.HBox
 {
     private Gtk.Label label;
-#if GTK3
-    private Gtk.ComboBoxText first_key = new Gtk.ComboBoxText();
-    private Gtk.ComboBoxText second_key = new Gtk.ComboBoxText();
-#else
+#if GTK2
     private Gtk.ComboBox first_key = new Gtk.ComboBox.text();
     private Gtk.ComboBox second_key = new Gtk.ComboBox.text();
+#else
+    private Gtk.ComboBoxText first_key = new Gtk.ComboBoxText();
+    private Gtk.ComboBoxText second_key = new Gtk.ComboBoxText();
 #endif
     private Gtk.Entry entry = new Gtk.Entry();
 

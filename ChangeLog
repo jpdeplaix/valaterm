@@ -1,3 +1,15 @@
+0.6
+===
+
+ * fixing escape keypress on exit confirmation dialog
+ * Waf updated from 1.6.11 to 1.7.2
+ * HUGE optimisations on system calls
+ * Add a copy_link item on the context menu
+ * Print error messages by default
+ * Optimisations and bug fixes via asynchonous functions
+ * Remove the compatiblity with vte < 0.28
+ * Use GTK+ 3 by default
+
 0.5.1
 =====
 

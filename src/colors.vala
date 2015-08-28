@@ -17,7 +17,7 @@
 
 namespace Colors
 {
-    const Gdk.Color[] colors_palette =
+    const Gdk.RGBA[] colors_palette =
     {
         { 0, 0x2e2e, 0x3434, 0x3636 },
         { 0, 0xcccc, 0x0000, 0x0000 },
@@ -37,11 +37,11 @@ namespace Colors
         { 0, 0xeeee, 0xeeee, 0xecec }
     };
 
-    public Gdk.Color parse(string color) throws GLib.ConvertError
+    public Gdk.RGBA parse(string color) throws GLib.ConvertError
     {
-        Gdk.Color value;
+        Gdk.RGBA value = new Gdk.RGBA();
 
-        if(Gdk.Color.parse(color, out value) == false)
+        if(value.parse(color) == false)
         {
             throw new GLib.ConvertError.FAILED(
                 "\"%s\" couldn't be parsed as color", color);

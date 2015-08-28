@@ -30,8 +30,8 @@ public class ParametersWindow : DefaultDialog
         Settings.show_scrollbar);
 
     public signal void font_changed(string font);
-    public signal void background_color_changed(Gdk.Color color);
-    public signal void foreground_color_changed(Gdk.Color color);
+    public signal void background_color_changed(Gdk.RGBA color);
+    public signal void foreground_color_changed(Gdk.RGBA color);
     public signal void scrollback_lines_changed(long lines);
     public signal void transparency_changed(bool tranparency);
     public signal void show_scrollbar_changed(bool show);
@@ -59,8 +59,8 @@ public class ParametersWindow : DefaultDialog
     protected override void ok_clicked()
     {
         string font_name = this.font_chooser.font_name;
-        Gdk.Color background_color = this.background_color_chooser.color;
-        Gdk.Color foreground_color = this.foreground_color_chooser.color;
+        Gdk.RGBA background_color = this.background_color_chooser.rgba;
+        Gdk.RGBA foreground_color = this.foreground_color_chooser.rgba;
         int scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
         bool transparency = this.transparency_chooser.active;
         bool show_scrollbar = this.show_scrollbar_chooser.active;

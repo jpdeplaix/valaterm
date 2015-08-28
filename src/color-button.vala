@@ -17,8 +17,8 @@
 
 public class ColorButton : Gtk.ColorButton
 {
-    public ColorButton(Gdk.Color color)
+    public ColorButton(Gdk.RGBA color)
     {
-        this.color = color;
+        this.rgba = color;
     }
 }

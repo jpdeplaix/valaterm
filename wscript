@@ -57,7 +57,7 @@ def configure(conf):
     glib_package_version = '2.16.0'
     gtk_package_version = conf.options.with_gtk2 and '2.16' or '3.0'
     gtk_package_name = conf.options.with_gtk2 and 'gtk+-2.0' or 'gtk+-3.0'
-    vte_package_name = conf.options.with_gtk2 and 'vte' or 'vte-2.90'
+    vte_package_name = conf.options.with_gtk2 and 'vte' or 'vte-2.91'
 
     conf.check_cfg(
         package         = 'glib-2.0',
@@ -121,7 +121,7 @@ def build(bld):
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     bld.program(
-        packages      = [bld.env.with_gtk2 and 'vte' or 'vte-2.90', 'config', 'posix'],
+        packages      = ['gtk+-3.0', bld.env.with_gtk2 and 'vte' or 'vte-2.91', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],

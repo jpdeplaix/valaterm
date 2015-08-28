@@ -34,9 +34,9 @@ public class Terminal : Vte.Terminal
     {
         this.scroll_on_keystroke = true;
 
-        this.background_transparent = Settings.transparency;
+        this.set_background_transparency(Settings.transparency);
         this.scrollback_lines = Settings.scrollback_lines;
-        this.set_font_from_string(Settings.font);
+        this.set_font(Pango.FontDescription.from_string(Settings.font));
         this.set_colors(Settings.foreground_color,
                         Settings.background_color,
                         Colors.colors_palette);
@@ -101,9 +101,9 @@ public class Terminal : Vte.Terminal
                 args += (!)(Settings.command);
             }
 
-            this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null,
-                                   GLib.SpawnFlags.SEARCH_PATH, null,
-                                   out this.child_pid);
+            this.spawn_sync(Vte.PtyFlags.DEFAULT, dir, args, null,
+                            GLib.SpawnFlags.SEARCH_PATH, null,
+                            out this.child_pid);
         }
         catch(GLib.Error error)
         {
@@ -126,7 +126,7 @@ public class Terminal : Vte.Terminal
 #if GTK2
         int pty = this.pty;
 #else
-        int pty = this.pty_object.fd;
+        int pty = this.pty.fd;
 #endif
         int fgpid = Posix.tcgetpgrp(pty);
 
@@ -161,5 +161,16 @@ public class Terminal : Vte.Terminal
         }
 
         return null;
+    }
+
+    // TODO: Merge Settings.transparency with Settings.background_color
+    public void set_background_transparency(bool b)
+    {
+        Gdk.RGBA color = Settings.background_color;
+        if(b)
+            color.alpha = 0;
+        else
+            color.alpha = 1;
+        this.set_color_background(color);
     }
 }

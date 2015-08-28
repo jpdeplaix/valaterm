@@ -81,11 +81,11 @@ public class Settings : GLib.Object
         }
     }
 
-    public static Gdk.Color background_color
+    public static Gdk.RGBA background_color
     {
         get
         {
-            Gdk.Color white = { 0, 0xffff, 0xffff, 0xffff };
+            Gdk.RGBA white = { 0, 0xffff, 0xffff, 0xffff };
             return file.get_color_key(TERMINAL, BACKGROUND_COLOR, white);
         }
 
@@ -95,11 +95,11 @@ public class Settings : GLib.Object
         }
     }
 
-    public static Gdk.Color foreground_color
+    public static Gdk.RGBA foreground_color
     {
         get
         {
-            Gdk.Color black = { 0, 0, 0, 0 };
+            Gdk.RGBA black = { 0, 0, 0, 0 };
             return file.get_color_key(TERMINAL, FOREGROUND_COLOR, black);
         }
 

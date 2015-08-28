@@ -41,6 +41,10 @@ public class MainWindow : Gtk.Window
 
         MainWindow.window_count++;
 
+        // NOTE: Initialize the window to be transparency ready
+        this.set_visual(this.get_screen().get_rgba_visual());
+        this.terminal.set_opacity(1);
+
         this.show_scrollbar(Settings.show_scrollbar);
         this.scrolled_window.add(this.terminal);
 
@@ -123,7 +127,8 @@ public class MainWindow : Gtk.Window
     {
         var dialog = new ParametersWindow(this);
 
-        dialog.font_changed.connect(this.terminal.set_font_from_string);
+        dialog.font_changed.connect((str) =>
+                                    this.terminal.set_font(Pango.FontDescription.from_string(str)));
         dialog.background_color_changed.connect(
             this.terminal.set_color_background);
         dialog.foreground_color_changed.connect(
@@ -131,7 +136,7 @@ public class MainWindow : Gtk.Window
         dialog.scrollback_lines_changed.connect(
             this.terminal.set_scrollback_lines);
         dialog.transparency_changed.connect(
-            this.terminal.set_background_transparent);
+            this.terminal.set_background_transparency);
         dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 
         dialog.show_all();
